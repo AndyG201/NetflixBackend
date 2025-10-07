@@ -1,10 +1,8 @@
-package co.edu.unbosque.netflixbackend.model;
-
+package co.edu.unbosque.netflixbackend.dto;
 import java.time.LocalDateTime;
-import jakarta.persistence.Entity;
+import co.edu.unbosque.netflixbackend.model.EstadoCuenta;
 
-@Entity
-public class Usuario {
+public class UsuarioDTO {
 
 	private int idUsuario;
 	private String primerNombre;
@@ -16,12 +14,12 @@ public class Usuario {
 	private LocalDateTime fechaRegistro;
 	private EstadoCuenta estadoCuenta;
 
-	public Usuario() {
+	public UsuarioDTO() {
 		this.fechaRegistro = LocalDateTime.now();
 		this.estadoCuenta = EstadoCuenta.ACTIVO;
 	}
 
-	public Usuario(String correo, String telefono, String contrasenia) {
+	public UsuarioDTO(String correo, String telefono, String contrasenia) {
 		this.correo = correo;
 		this.telefono = telefono;
 		this.contrasenia = contrasenia;
@@ -29,7 +27,7 @@ public class Usuario {
 		this.estadoCuenta = EstadoCuenta.ACTIVO;
 	}
 
-	public Usuario(String primerNombre, String primerApellido, String correo, String telefono,
+	public UsuarioDTO(String primerNombre, String primerApellido, String correo, String telefono,
 			LocalDateTime fechaNacimiento, String contrasenia) {
 		this.primerNombre = primerNombre;
 		this.primerApellido = primerApellido;
