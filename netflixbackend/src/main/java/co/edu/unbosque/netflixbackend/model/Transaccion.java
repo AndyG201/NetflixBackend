@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 
-@Entity
+
 public class Transaccion {
 
 	private int idTransaccion;

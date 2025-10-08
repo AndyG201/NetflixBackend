@@ -1,8 +1,9 @@
-package co.edu.unbosque.netflixbackend.model;
+package co.edu.unbosque.netflixbackend.dto;
 
-public class Documental {
 
-    private int idDocumental; 
+public class PeliculaDTO {
+
+    private int idPelicula; 
     private String nombre; 
     private String descripcion; 
     private String poster; 
@@ -11,11 +12,13 @@ public class Documental {
     private double popularidad;
     private int idClasificacion;
 
-    public Documental() {}
+    public PeliculaDTO() {
+    }
 
-    public Documental(int idDocumental, String nombre, String descripcion, String poster, 
-                      String fechaEstreno, double calificacion, double popularidad, int idClasificacion) {
-        this.idDocumental = idDocumental;
+    public PeliculaDTO(int idPelicula, String nombre, String descripcion, String poster,
+                    String fechaEstreno,
+                    double calificacion, double popularidad, int idClasificacion) {
+        this.idPelicula = idPelicula;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.poster = poster;
@@ -25,12 +28,12 @@ public class Documental {
         this.idClasificacion = idClasificacion;
     }
 
-    public int getIdDocumental() {
-        return idDocumental;
+    public int getIdPelicula() {
+        return idPelicula;
     }
 
-    public void setIdDocumental(int idDocumental) {
-        this.idDocumental = idDocumental;
+    public void setIdPelicula(int idPelicula) {
+        this.idPelicula = idPelicula;
     }
 
     public String getNombre() {
@@ -91,15 +94,9 @@ public class Documental {
 
     @Override
     public String toString() {
-        return "Documental{" +
-                "idDocumental=" + idDocumental +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", poster='" + poster + '\'' +
-                ", fechaEstreno='" + fechaEstreno + '\'' +
-                ", calificacion=" + calificacion +
-                ", popularidad=" + popularidad +
-                ", idClasificacion=" + idClasificacion +
-                '}';
+        return "Pelicula [idPelicula=" + idPelicula + ", nombre=" + nombre + ", descripcion=" + descripcion
+                + ", poster=" + poster + ", fechaEstreno=" + fechaEstreno
+                + ", calificacion=" + calificacion + ", popularidad=" + popularidad
+                + ", idClasificacion=" + idClasificacion + "]";
     }
 }

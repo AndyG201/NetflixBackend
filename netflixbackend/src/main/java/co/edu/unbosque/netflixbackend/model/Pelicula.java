@@ -1,23 +1,30 @@
 package co.edu.unbosque.netflixbackend.model;
 
+
 public class Pelicula {
 
-    private int idPelicula;
-    private String nombre;
-    private String genero;
-    private int duracion;
-    private String descripcion;
+    private int idPelicula; 
+    private String nombre; 
+    private String descripcion; 
+    private String poster; 
+    private String fechaEstreno; 
+    private double calificacion; 
+    private double popularidad;
     private int idClasificacion;
 
     public Pelicula() {
     }
 
-    public Pelicula(int idPelicula, String nombre, String genero, int duracion, String descripcion, int idClasificacion) {
+    public Pelicula(int idPelicula, String nombre, String descripcion, String poster,
+                    String fechaEstreno,
+                    double calificacion, double popularidad, int idClasificacion) {
         this.idPelicula = idPelicula;
         this.nombre = nombre;
-        this.genero = genero;
-        this.duracion = duracion;
         this.descripcion = descripcion;
+        this.poster = poster;
+        this.fechaEstreno = fechaEstreno;
+        this.calificacion = calificacion;
+        this.popularidad = popularidad;
         this.idClasificacion = idClasificacion;
     }
 
@@ -37,28 +44,44 @@ public class Pelicula {
         this.nombre = nombre;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public int getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getFechaEstreno() {
+        return fechaEstreno;
+    }
+
+    public void setFechaEstreno(String fechaEstreno) {
+        this.fechaEstreno = fechaEstreno;
+    }
+
+    public double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(double calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public double getPopularidad() {
+        return popularidad;
+    }
+
+    public void setPopularidad(double popularidad) {
+        this.popularidad = popularidad;
     }
 
     public int getIdClasificacion() {
@@ -71,7 +94,9 @@ public class Pelicula {
 
     @Override
     public String toString() {
-        return "Pelicula [idPelicula=" + idPelicula + ", nombre=" + nombre + ", genero=" + genero + ", duracion="
-                + duracion + ", descripcion=" + descripcion + ", idClasificacion=" + idClasificacion + "]";
+        return "Pelicula [idPelicula=" + idPelicula + ", nombre=" + nombre + ", descripcion=" + descripcion
+                + ", poster=" + poster + ", fechaEstreno=" + fechaEstreno
+                + ", calificacion=" + calificacion + ", popularidad=" + popularidad
+                + ", idClasificacion=" + idClasificacion + "]";
     }
 }

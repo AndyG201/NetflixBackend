@@ -64,7 +64,6 @@ public class UsuarioRepository {
 	}
 	
 	public Usuario findByEmail(String email) {
-		System.out.println(email);
 	    Usuario usuario = null;
 	    String sql = "SELECT * FROM usuario WHERE correo = ?";
 

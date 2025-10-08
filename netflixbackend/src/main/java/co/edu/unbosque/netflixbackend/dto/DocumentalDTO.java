@@ -1,6 +1,6 @@
-package co.edu.unbosque.netflixbackend.model;
+package co.edu.unbosque.netflixbackend.dto;
 
-public class Documental {
+public class DocumentalDTO {
 
     private int idDocumental; 
     private String nombre; 
@@ -11,9 +11,9 @@ public class Documental {
     private double popularidad;
     private int idClasificacion;
 
-    public Documental() {}
+    public DocumentalDTO() {}
 
-    public Documental(int idDocumental, String nombre, String descripcion, String poster, 
+    public DocumentalDTO(int idDocumental, String nombre, String descripcion, String poster, 
                       String fechaEstreno, double calificacion, double popularidad, int idClasificacion) {
         this.idDocumental = idDocumental;
         this.nombre = nombre;

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 
-@Entity
+
 public class UsuarioPelicula {
 	private int idUsuarioPelicula;
 	private LocalDateTime fechaVisualizacion;
