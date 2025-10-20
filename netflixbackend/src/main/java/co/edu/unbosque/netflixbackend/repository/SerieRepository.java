@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import co.edu.unbosque.netflixbackend.model.Serie;
 
-
+@Repository
 public class SerieRepository {
 	
 	@Autowired
@@ -34,7 +36,6 @@ public class SerieRepository {
         }
     }
 
-    // OBTENER todas las series
     public List<Serie> obtenerTodasLasSeries() {
         List<Serie> series = new ArrayList<>();
         String sql = "SELECT * FROM serie";

@@ -1,7 +1,5 @@
 package co.edu.unbosque.netflixbackend.model;
-
 import java.time.LocalDateTime;
-import jakarta.persistence.Entity;
 
 
 public class Usuario {

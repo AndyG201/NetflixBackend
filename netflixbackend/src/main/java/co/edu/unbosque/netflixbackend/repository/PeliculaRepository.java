@@ -34,7 +34,7 @@ public class PeliculaRepository {
 	        ps.setInt(7, pelicula.getIdClasificacion());
 
 	        int filasInsertadas = ps.executeUpdate();
-	        return filasInsertadas > 0; // Devuelve true si se insertó correctamente
+	        return filasInsertadas > 0;
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -82,7 +82,7 @@ public class PeliculaRepository {
 
 	        while (rs.next()) {
 	            Pelicula pelicula = new Pelicula();
-	            pelicula.setIdPelicula(rs.getInt("idPelicula"));
+	            pelicula.setIdPelicula(rs.getInt("id_Pelicula"));
 	            pelicula.setNombre(rs.getString("nombre"));
 	            pelicula.setDescripcion(rs.getString("descripcion"));
 	            pelicula.setPoster(rs.getString("poster"));

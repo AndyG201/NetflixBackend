@@ -1,17 +1,17 @@
-package co.edu.unbosque.netflixbackend.model;
+package co.edu.unbosque.netflixbackend.dto;
 
-public class Suscripcion {
+public class SuscripcionDTO {
 	private int idSuscripcion;
 	private String tipoSuscripcion;
 	private int duracion;
 	private int precio;
 	private String descripcion;
 	
-	public Suscripcion() {
+	public SuscripcionDTO() {
 		
 	}
 	
-	public Suscripcion(String tipoSuscripcion, int duracion, int precio, String descripcion) {
+	public SuscripcionDTO(String tipoSuscripcion, int duracion, int precio, String descripcion) {
 		super();
 		this.tipoSuscripcion = tipoSuscripcion;
 		this.duracion = duracion;
@@ -59,5 +59,8 @@ public class Suscripcion {
 		this.descripcion = descripcion;
 	}
 
+
+	
+ 
 
 }
