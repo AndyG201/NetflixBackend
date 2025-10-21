@@ -1,11 +1,12 @@
 package co.edu.unbosque.netflixbackend.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 public class Pago {
 
 	private int idPago;
-	private LocalDateTime fecha;
+	private LocalDate fecha;
 	private String referencia;
 	private int monto;
 	private int idUsuario;
@@ -17,7 +18,7 @@ public class Pago {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pago(LocalDateTime fecha, String referencia, int monto, int idUsuario, int idSuscripcion, int idEstadoPago,
+	public Pago(LocalDate fecha, String referencia, int monto, int idUsuario, int idSuscripcion, int idEstadoPago,
 			int metodoPago) {
 		super();
 		this.fecha = fecha;
@@ -37,11 +38,11 @@ public class Pago {
 		this.idPago = idPago;
 	}
 
-	public LocalDateTime getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDateTime fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 

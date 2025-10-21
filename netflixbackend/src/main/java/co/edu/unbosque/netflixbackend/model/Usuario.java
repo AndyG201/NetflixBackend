@@ -11,32 +11,24 @@ public class Usuario {
 	private String telefono;
 	private LocalDateTime fechaNacimiento;
 	private String contrasenia;
-	private LocalDateTime fechaRegistro;
-	private EstadoCuenta estadoCuenta;
-
+	private int idRegistro;
+	private int idEstado;
+	
 	public Usuario() {
-		this.fechaRegistro = LocalDateTime.now();
-		this.estadoCuenta = EstadoCuenta.ACTIVO;
-	}
-
-	public Usuario(String correo, String telefono, String contrasenia) {
-		this.correo = correo;
-		this.telefono = telefono;
-		this.contrasenia = contrasenia;
-		this.fechaRegistro = LocalDateTime.now();
-		this.estadoCuenta = EstadoCuenta.ACTIVO;
+		// TODO Auto-generated constructor stub
 	}
 
 	public Usuario(String primerNombre, String primerApellido, String correo, String telefono,
-			LocalDateTime fechaNacimiento, String contrasenia) {
+			LocalDateTime fechaNacimiento, String contrasenia, int idRegistro, int idEstado) {
+		super();
 		this.primerNombre = primerNombre;
 		this.primerApellido = primerApellido;
 		this.correo = correo;
 		this.telefono = telefono;
 		this.fechaNacimiento = fechaNacimiento;
 		this.contrasenia = contrasenia;
-		this.fechaRegistro = LocalDateTime.now();
-		this.estadoCuenta = EstadoCuenta.ACTIVO;
+		this.idRegistro = idRegistro;
+		this.idEstado = idEstado;
 	}
 
 	public int getIdUsuario() {
@@ -95,27 +87,23 @@ public class Usuario {
 		this.contrasenia = contrasenia;
 	}
 
-	public LocalDateTime getFechaRegistro() {
-		return fechaRegistro;
+	public int getIdRegistro() {
+		return idRegistro;
 	}
 
-	public void setFechaRegistro(LocalDateTime fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
+	public void setIdRegistro(int idRegistro) {
+		this.idRegistro = idRegistro;
 	}
 
-	public EstadoCuenta getEstadoCuenta() {
-		return estadoCuenta;
+	public int getIdEstado() {
+		return idEstado;
 	}
 
-	public void setEstadoCuenta(EstadoCuenta estadoCuenta) {
-		this.estadoCuenta = estadoCuenta;
+	public void setIdEstado(int idEstado) {
+		this.idEstado = idEstado;
 	}
+	
+	
 
-	@Override
-	public String toString() {
-		return "Usuario [idUsuario=" + idUsuario + ", primerNombre=" + primerNombre + ", primerApellido="
-				+ primerApellido + ", correo=" + correo + ", telefono=" + telefono + ", fechaNacimiento="
-				+ fechaNacimiento + ", contrasenia=" + contrasenia + ", fechaRegistro=" + fechaRegistro
-				+ ", estadoCuenta=" + estadoCuenta + "]";
-	}
+	
 }

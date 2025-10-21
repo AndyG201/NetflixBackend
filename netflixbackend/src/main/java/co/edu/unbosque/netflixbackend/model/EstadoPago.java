@@ -1,15 +1,15 @@
 package co.edu.unbosque.netflixbackend.model;
 
-public class EstadoCuenta {
+public class EstadoPago {
 
 	private int idPago;
 	private String nombreEstado;
 	
-	public EstadoCuenta() {
+	public EstadoPago() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EstadoCuenta(String nombreEstado) {
+	public EstadoPago(String nombreEstado) {
 		super();
 		this.nombreEstado = nombreEstado;
 	}

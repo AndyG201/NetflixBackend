@@ -1,6 +1,6 @@
 package co.edu.unbosque.netflixbackend.dto;
 import java.time.LocalDateTime;
-import co.edu.unbosque.netflixbackend.model.EstadoCuenta;
+
 
 public class UsuarioDTO {
 
@@ -11,32 +11,24 @@ public class UsuarioDTO {
 	private String telefono;
 	private LocalDateTime fechaNacimiento;
 	private String contrasenia;
-	private LocalDateTime fechaRegistro;
-	private EstadoCuenta estadoCuenta;
-
+	private int idRegistro;
+	private int idEstado;
+	
 	public UsuarioDTO() {
-		this.fechaRegistro = LocalDateTime.now();
-		this.estadoCuenta = EstadoCuenta.ACTIVO;
-	}
-
-	public UsuarioDTO(String correo, String telefono, String contrasenia) {
-		this.correo = correo;
-		this.telefono = telefono;
-		this.contrasenia = contrasenia;
-		this.fechaRegistro = LocalDateTime.now();
-		this.estadoCuenta = EstadoCuenta.ACTIVO;
+		// TODO Auto-generated constructor stub
 	}
 
 	public UsuarioDTO(String primerNombre, String primerApellido, String correo, String telefono,
-			LocalDateTime fechaNacimiento, String contrasenia) {
+			LocalDateTime fechaNacimiento, String contrasenia, int idRegistro, int idEstado) {
+		super();
 		this.primerNombre = primerNombre;
 		this.primerApellido = primerApellido;
 		this.correo = correo;
 		this.telefono = telefono;
 		this.fechaNacimiento = fechaNacimiento;
 		this.contrasenia = contrasenia;
-		this.fechaRegistro = LocalDateTime.now();
-		this.estadoCuenta = EstadoCuenta.ACTIVO;
+		this.idRegistro = idRegistro;
+		this.idEstado = idEstado;
 	}
 
 	public int getIdUsuario() {
@@ -95,27 +87,19 @@ public class UsuarioDTO {
 		this.contrasenia = contrasenia;
 	}
 
-	public LocalDateTime getFechaRegistro() {
-		return fechaRegistro;
+	public int getIdRegistro() {
+		return idRegistro;
 	}
 
-	public void setFechaRegistro(LocalDateTime fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
+	public void setIdRegistro(int idRegistro) {
+		this.idRegistro = idRegistro;
 	}
 
-	public EstadoCuenta getEstadoCuenta() {
-		return estadoCuenta;
+	public int getIdEstado() {
+		return idEstado;
 	}
 
-	public void setEstadoCuenta(EstadoCuenta estadoCuenta) {
-		this.estadoCuenta = estadoCuenta;
-	}
-
-	@Override
-	public String toString() {
-		return "Usuario [idUsuario=" + idUsuario + ", primerNombre=" + primerNombre + ", primerApellido="
-				+ primerApellido + ", correo=" + correo + ", telefono=" + telefono + ", fechaNacimiento="
-				+ fechaNacimiento + ", contrasenia=" + contrasenia + ", fechaRegistro=" + fechaRegistro
-				+ ", estadoCuenta=" + estadoCuenta + "]";
+	public void setIdEstado(int idEstado) {
+		this.idEstado = idEstado;
 	}
 }

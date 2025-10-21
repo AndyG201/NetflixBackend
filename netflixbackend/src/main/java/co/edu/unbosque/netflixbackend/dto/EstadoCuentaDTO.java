@@ -1,15 +1,15 @@
-package co.edu.unbosque.netflixbackend.model;
+package co.edu.unbosque.netflixbackend.dto;
 
-public class EstadoCuenta {
+public class EstadoCuentaDTO {
 
 	private int idPago;
 	private String nombreEstado;
-	
-	public EstadoCuenta() {
+
+	public EstadoCuentaDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EstadoCuenta(String nombreEstado) {
+	public EstadoCuentaDTO(String nombreEstado) {
 		super();
 		this.nombreEstado = nombreEstado;
 	}
@@ -29,6 +29,5 @@ public class EstadoCuenta {
 	public void setNombreEstado(String nombreEstado) {
 		this.nombreEstado = nombreEstado;
 	}
-	
-	
+
 }
