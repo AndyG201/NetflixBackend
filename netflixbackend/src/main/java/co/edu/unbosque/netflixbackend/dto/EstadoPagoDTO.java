@@ -1,15 +1,15 @@
 package co.edu.unbosque.netflixbackend.dto;
 
-public class EstadoPago {
+public class EstadoPagoDTO {
 
 	private int idPago;
 	private String nombreEstado;
 	
-	public EstadoPago() {
+	public EstadoPagoDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EstadoPago(String nombreEstado) {
+	public EstadoPagoDTO(String nombreEstado) {
 		super();
 		this.nombreEstado = nombreEstado;
 	}

@@ -119,6 +119,40 @@ public class UsuarioRepository {
 		return usuarios;
 	}
 	
+	public Usuario findById(int  id) {
+	    Usuario usuario = null;
+	    String sql = "SELECT * FROM usuario WHERE id_usuario = ?";
+
+	    try (Connection conn = conexionDB.obtenerConexion();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setInt(1, id);
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            if (rs.next()) {
+	                usuario = new Usuario();
+	                usuario.setIdUsuario(rs.getInt("id_usuario"));
+	                usuario.setPrimerNombre(rs.getString("primer_nombre"));
+	                usuario.setPrimerApellido(rs.getString("primer_apellido"));
+	                usuario.setCorreo(rs.getString("correo"));
+	                usuario.setTelefono(rs.getString("telefono"));
+
+	                Timestamp fecha = rs.getTimestamp("fecha_nacimiento");
+	                if (fecha != null) {
+	                    usuario.setFechaNacimiento(fecha.toLocalDateTime().toLocalDate());
+	                }
+
+	                usuario.setContrasenia(rs.getString("contrasenia"));
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return usuario; 
+	}
+	
 	
 
 }

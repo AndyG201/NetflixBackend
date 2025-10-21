@@ -1,12 +1,11 @@
-package co.edu.unbosque.netflixbackend.model;
+package co.edu.unbosque.netflixbackend.dto;
 
 import java.time.LocalDate;
 
-
-public class Pago {
+public class PagoDTO {
 
 	private int idPago;
-	private LocalDate fecha;
+	private LocalDate fechaMaxima;
 	private String referencia;
 	private int monto;
 	private int idUsuario;
@@ -14,14 +13,14 @@ public class Pago {
 	private int idEstadoPago;
 	private int idMetodoPago;
 	
-	public Pago() {
+	public PagoDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pago(LocalDate fecha, String referencia, int monto, int idUsuario, int idSuscripcion, int idEstadoPago,
+	public PagoDTO(LocalDate fecha, String referencia, int monto, int idUsuario, int idSuscripcion, int idEstadoPago,
 			int idMetodoPago) {
 		super();
-		this.fecha = fecha;
+		this.fechaMaxima = fecha;
 		this.referencia = referencia;
 		this.monto = monto;
 		this.idUsuario = idUsuario;
@@ -39,11 +38,11 @@ public class Pago {
 	}
 
 	public LocalDate getFecha() {
-		return fecha;
+		return fechaMaxima;
 	}
 
 	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
+		this.fechaMaxima = fecha;
 	}
 
 	public String getReferencia() {

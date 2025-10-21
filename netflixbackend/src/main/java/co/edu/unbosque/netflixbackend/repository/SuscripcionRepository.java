@@ -43,5 +43,31 @@ public class SuscripcionRepository {
 		
 		return suscripciones;
 	}
+	
+    public Suscripcion findById(int idSuscripcion) {
+        Suscripcion suscripcion = null;
+        String sql = "SELECT * FROM suscripcion WHERE id_suscripcion = ?";
+
+        try (Connection conn = conexionDB.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idSuscripcion);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    suscripcion = new Suscripcion();
+                    suscripcion.setIdSuscripcion(rs.getInt("id_suscripcion"));
+                    suscripcion.setTipoSuscripcion(rs.getString("tipo_suscripcion"));
+                    suscripcion.setDuracion(rs.getInt("duracion"));
+                    suscripcion.setPrecio(rs.getInt("precio"));
+                    suscripcion.setDescripcion(rs.getString("descripcion"));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al buscar la suscripción con ID " + idSuscripcion + ": " + e.getMessage());
+        }
+
+        return suscripcion;
+    }
 
 }
