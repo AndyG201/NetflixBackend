@@ -2,10 +2,9 @@ package co.edu.unbosque.netflixbackend.repository;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import org.springframework.stereotype.Component;
 
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
+@Component
 public class ConexionDB { 
 	
 	private static final String URL = "jdbc:mysql://192.168.56.108:3306/databasesi";

@@ -44,15 +44,19 @@ public class UsuarioService {
        return 0;
     }
     
-    public int crearUsuario (String codigo) {
-    	UsuarioDTO usuarioDTO = usuariosPendientes.get(codigo);
-    	if(usuarioDTO != null) {
-    		usuarioRepository.crearUsuario(modelMapper.map(usuarioDTO, Usuario.class));
-    		usuariosPendientes.remove(codigo);
-    		return 1;
-    	}
-    	return 0;
+    public int crearUsuario(String codigo) {
+        codigo = codigo.replace("\"", "").trim();
+        System.out.println("En el service (limpio): " + codigo);
+        UsuarioDTO usuarioDTO = usuariosPendientes.get(codigo);
+        System.out.println("Usuario encontrado en mapa: " + usuarioDTO);
+        if (usuarioDTO != null) {
+            usuarioRepository.crearUsuario(modelMapper.map(usuarioDTO, Usuario.class));
+            usuariosPendientes.remove(codigo);
+            return 1;
+        }
+        return 0;
     }
+
 
 	public boolean buscarPorCorreo (String correo) {
 		Usuario usuario = usuarioRepository.findByEmail(correo);

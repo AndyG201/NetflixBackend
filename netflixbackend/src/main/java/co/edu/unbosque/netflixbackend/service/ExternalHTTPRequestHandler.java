@@ -7,6 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,8 +17,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import co.edu.unbosque.netflixbackend.model.Documental;
+import co.edu.unbosque.netflixbackend.model.Genero;
 import co.edu.unbosque.netflixbackend.model.Pelicula;
 import co.edu.unbosque.netflixbackend.repository.DocumentalRepository;
+import co.edu.unbosque.netflixbackend.repository.GeneroRepository;
+import co.edu.unbosque.netflixbackend.repository.PeliculaRepository;
 
 
 public class ExternalHTTPRequestHandler {
@@ -26,9 +30,36 @@ public class ExternalHTTPRequestHandler {
     private static final String API_KEY = "4584014a9db6264fabab2596a1da86b2";
 
     private static final String BASE_URL_PELICULAS =
-            "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&with_origin_country=US";
+            "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&with_origin_country=US&language=es-ES";
     private static final String BASE_URL_DOCUMENTALES =
-            "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&with_genres=99";
+            "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&with_genres=99&language=es-ES";
+    public static List<Genero> obtenerGeneros() {
+        List<Genero> listaGeneros = new ArrayList<>();
+
+        String url = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + API_KEY + "&language=es-ES";
+        String jsonResponse = doGet(url);
+
+        if (jsonResponse == null) {
+            System.out.println("⚠️ No se pudo obtener la lista de géneros.");
+            return listaGeneros;
+        }
+
+        JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+        JsonArray generosArray = jsonObject.getAsJsonArray("genres");
+
+        for (JsonElement element : generosArray) {
+            JsonObject generoObj = element.getAsJsonObject();
+            Genero genero = new Genero();
+
+            if (generoObj.has("id")) genero.setIdGenero(generoObj.get("id").getAsInt());
+            if (generoObj.has("name")) genero.setNombre(generoObj.get("name").getAsString());
+
+            listaGeneros.add(genero);
+        }
+
+        return listaGeneros;
+    }
+
 
 
     // Método genérico para hacer peticiones HTTP GET
@@ -158,22 +189,62 @@ public class ExternalHTTPRequestHandler {
     
     // 🔹 Método principal de prueba
     public static void main(String[] args) {
-        // Guardar películas
-        /*
-        PeliculaRepository repoPeliculas = new PeliculaRepository();
-        List<Pelicula> peliculas = obtenerPeliculas(2);
-        for (Pelicula p : peliculas) {
-            repoPeliculas.agregarPelicula(p);
-            System.out.println("🎬 Agregada película: " + p.getNombre());
-        }
-        */
+    	/*Random random = new Random();
+    	PeliculaRepository repoPeliculas = new PeliculaRepository();
+    	List<Pelicula> peliculas = obtenerPeliculas(5);
+    	
 
-        // Guardar documentales
-        DocumentalRepository repoDocumentales = new DocumentalRepository();
-        List<Documental> documentales = obtenerDocumentales(5);
-        for (Documental d : documentales) {
-            repoDocumentales.agregarDocumental(d);
-            System.out.println("🎥 Agregado documental: " + d.getNombre());
+    	for (Pelicula p : peliculas) {
+    	    // Calificación aleatoria entre 1.0 y 10.0
+    	    double calificacion = 1.0 + (9.0 * random.nextDouble());
+
+    	    // Popularidad aleatoria entre 0 y 100
+    	    double popularidad = random.nextDouble() * 100;
+
+    	    p.setCalificacion(calificacion);
+    	    p.setPopularidad(popularidad);
+
+    	    repoPeliculas.agregarPelicula(p);
+
+    	    System.out.println("🎬 Agregada película: " + p.getNombre() + 
+    	        " | ⭐ " + String.format("%.1f", p.getCalificacion()) + 
+    	        " | 📈 " + String.format("%.1f", p.getPopularidad()));
+    	}
+
+        
+
+    	DocumentalRepository documentalRepository = new DocumentalRepository();
+    	List<Documental> documentales = obtenerDocumentales(4);
+    	 
+    	for (Documental d : documentales) {
+    	    double calificacion = 1.0 + (9.0 * random.nextDouble()); // entre 1.0 y 10.0
+    	    double popularidad = random.nextDouble() * 100;
+
+    	    d.setCalificacion(calificacion);
+    	    d.setPopularidad(popularidad);
+
+    	   
+    	    documentalRepository.agregarDocumental(d);
+
+    	    System.out.println("🎥 Agregado documental: " + d.getNombre() +
+    	        " | ⭐ " + String.format("%.1f", d.getCalificacion()) +
+    	        " | 📈 " + String.format("%.1f", d.getPopularidad()));
+    	}*/
+    	GeneroRepository repoGeneros = new GeneroRepository();
+
+        // ✅ Obtener lista desde la API
+        List<Genero> generos = obtenerGeneros();
+
+        // ✅ Insertar cada género en la base de datos
+        for (Genero g : generos) {
+            boolean insertado = repoGeneros.crearGeneros(g);
+
+            if (insertado) {
+                System.out.println("🎭 Género agregado: " + g.getNombre());
+            } else {
+                System.out.println("⚠️ No se pudo agregar: " + g.getNombre());
+            }
         }
+
     }
 }

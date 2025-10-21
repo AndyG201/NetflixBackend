@@ -1,4 +1,5 @@
 package co.edu.unbosque.netflixbackend.dto;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -9,17 +10,18 @@ public class UsuarioDTO {
 	private String primerApellido;
 	private String correo;
 	private String telefono;
-	private LocalDateTime fechaNacimiento;
+	private LocalDate fechaNacimiento;
 	private String contrasenia;
-	private int idRegistro;
+	private LocalDateTime fechaRegistro;
 	private int idEstado;
 	
 	public UsuarioDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	public UsuarioDTO(String primerNombre, String primerApellido, String correo, String telefono,
-			LocalDateTime fechaNacimiento, String contrasenia, int idRegistro, int idEstado) {
+			LocalDate fechaNacimiento, String contrasenia, LocalDateTime fechaRegistro, int idEstado) {
 		super();
 		this.primerNombre = primerNombre;
 		this.primerApellido = primerApellido;
@@ -27,9 +29,11 @@ public class UsuarioDTO {
 		this.telefono = telefono;
 		this.fechaNacimiento = fechaNacimiento;
 		this.contrasenia = contrasenia;
-		this.idRegistro = idRegistro;
+		this.fechaRegistro = fechaRegistro;
 		this.idEstado = idEstado;
 	}
+
+
 
 	public int getIdUsuario() {
 		return idUsuario;
@@ -71,11 +75,11 @@ public class UsuarioDTO {
 		this.telefono = telefono;
 	}
 
-	public LocalDateTime getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -87,12 +91,12 @@ public class UsuarioDTO {
 		this.contrasenia = contrasenia;
 	}
 
-	public int getIdRegistro() {
-		return idRegistro;
+	public LocalDateTime getFechaRegistro() {
+		return fechaRegistro;
 	}
 
-	public void setIdRegistro(int idRegistro) {
-		this.idRegistro = idRegistro;
+	public void setFechaRegistro(LocalDateTime fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
 	}
 
 	public int getIdEstado() {
@@ -102,4 +106,8 @@ public class UsuarioDTO {
 	public void setIdEstado(int idEstado) {
 		this.idEstado = idEstado;
 	}
+	
+	
+
+	
 }

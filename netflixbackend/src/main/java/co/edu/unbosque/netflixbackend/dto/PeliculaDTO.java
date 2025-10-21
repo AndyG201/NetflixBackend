@@ -10,14 +10,13 @@ public class PeliculaDTO {
     private String fechaEstreno; 
     private double calificacion; 
     private double popularidad;
-    private int idClasificacion;
 
     public PeliculaDTO() {
     }
 
     public PeliculaDTO(int idPelicula, String nombre, String descripcion, String poster,
                     String fechaEstreno,
-                    double calificacion, double popularidad, int idClasificacion) {
+                    double calificacion, double popularidad) {
         this.idPelicula = idPelicula;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -25,7 +24,6 @@ public class PeliculaDTO {
         this.fechaEstreno = fechaEstreno;
         this.calificacion = calificacion;
         this.popularidad = popularidad;
-        this.idClasificacion = idClasificacion;
     }
 
     public int getIdPelicula() {
@@ -82,21 +80,5 @@ public class PeliculaDTO {
 
     public void setPopularidad(double popularidad) {
         this.popularidad = popularidad;
-    }
-
-    public int getIdClasificacion() {
-        return idClasificacion;
-    }
-
-    public void setIdClasificacion(int idClasificacion) {
-        this.idClasificacion = idClasificacion;
-    }
-
-    @Override
-    public String toString() {
-        return "Pelicula [idPelicula=" + idPelicula + ", nombre=" + nombre + ", descripcion=" + descripcion
-                + ", poster=" + poster + ", fechaEstreno=" + fechaEstreno
-                + ", calificacion=" + calificacion + ", popularidad=" + popularidad
-                + ", idClasificacion=" + idClasificacion + "]";
     }
 }

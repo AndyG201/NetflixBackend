@@ -29,9 +29,9 @@ public class SuscripcionRepository {
 			while(rs.next()) {
 				Suscripcion suscripcion = new Suscripcion();
 				suscripcion.setIdSuscripcion(rs.getInt("id_suscripcion"));
+				suscripcion.setTipoSuscripcion(rs.getString("tipo_suscripcion"));
 				suscripcion.setDuracion(rs.getInt("duracion"));
 				suscripcion.setPrecio(rs.getInt("precio"));
-				suscripcion.setTipoSuscripcion(rs.getString("tipo"));
 				suscripcion.setDescripcion(rs.getString("descripcion"));
 				
 				suscripciones.add(suscripcion);

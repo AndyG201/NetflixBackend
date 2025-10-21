@@ -19,8 +19,8 @@ public class PeliculaRepository {
 	private ConexionDB conexionDB = new ConexionDB();
 	
 	public boolean agregarPelicula(Pelicula pelicula) {
-	    String sql = "INSERT INTO pelicula (nombre, descripcion, poster, fechaEstreno, calificacion, popularidad, idClasificacion) "
-	               + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+	    String sql = "INSERT INTO pelicula (nombre, descripcion, poster, fecha_estreno, calificacion, popularidad) "
+	               + "VALUES (?, ?, ?, ?, ?, ?)";
 
 	    try (Connection conn = conexionDB.obtenerConexion();
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -31,7 +31,6 @@ public class PeliculaRepository {
 	        ps.setString(4, pelicula.getFechaEstreno());
 	        ps.setDouble(5, pelicula.getCalificacion());
 	        ps.setDouble(6, pelicula.getPopularidad());
-	        ps.setInt(7, pelicula.getIdClasificacion());
 
 	        int filasInsertadas = ps.executeUpdate();
 	        return filasInsertadas > 0;
@@ -55,14 +54,13 @@ public class PeliculaRepository {
 	        try (ResultSet rs = ps.executeQuery()) {
 	            if (rs.next()) {
 	                pelicula = new Pelicula();
-	                pelicula.setIdPelicula(rs.getInt("idPelicula"));
+	                pelicula.setIdPelicula(rs.getInt("id_pelicula"));
 	                pelicula.setNombre(rs.getString("nombre"));
 	                pelicula.setDescripcion(rs.getString("descripcion"));
 	                pelicula.setPoster(rs.getString("poster"));
-	                pelicula.setFechaEstreno(rs.getString("fechaEstreno"));
+	                pelicula.setFechaEstreno(rs.getString("fecha_estreno"));
 	                pelicula.setCalificacion(rs.getDouble("calificacion"));
 	                pelicula.setPopularidad(rs.getDouble("popularidad"));
-	                pelicula.setIdClasificacion(rs.getInt("idClasificacion"));
 	            }
 	        }
 
@@ -86,10 +84,9 @@ public class PeliculaRepository {
 	            pelicula.setNombre(rs.getString("nombre"));
 	            pelicula.setDescripcion(rs.getString("descripcion"));
 	            pelicula.setPoster(rs.getString("poster"));
-	            pelicula.setFechaEstreno(rs.getString("fechaEstreno"));
+	            pelicula.setFechaEstreno(rs.getString("fecha_estreno"));
 	            pelicula.setCalificacion(rs.getDouble("calificacion"));
 	            pelicula.setPopularidad(rs.getDouble("popularidad"));
-	            pelicula.setIdClasificacion(rs.getInt("idClasificacion"));
 	            peliculas.add(pelicula);
 	        }
 
@@ -110,14 +107,13 @@ public class PeliculaRepository {
 	        try (ResultSet rs = ps.executeQuery()) {
 	            while (rs.next()) {
 	                Pelicula pelicula = new Pelicula();
-	                pelicula.setIdPelicula(rs.getInt("idPelicula"));
+	                pelicula.setIdPelicula(rs.getInt("id_pelicula"));
 	                pelicula.setNombre(rs.getString("nombre"));
 	                pelicula.setDescripcion(rs.getString("descripcion"));
 	                pelicula.setPoster(rs.getString("poster"));
-	                pelicula.setFechaEstreno(rs.getString("fechaEstreno"));
+	                pelicula.setFechaEstreno(rs.getString("fecha_estreno"));
 	                pelicula.setCalificacion(rs.getDouble("calificacion"));
 	                pelicula.setPopularidad(rs.getDouble("popularidad"));
-	                pelicula.setIdClasificacion(rs.getInt("idClasificacion"));
 	                peliculas.add(pelicula);
 	            }
 	        }

@@ -9,12 +9,11 @@ public class Documental {
     private String fechaEstreno; 
     private double calificacion; 
     private double popularidad;
-    private int idClasificacion;
 
     public Documental() {}
 
     public Documental(int idDocumental, String nombre, String descripcion, String poster, 
-                      String fechaEstreno, double calificacion, double popularidad, int idClasificacion) {
+                      String fechaEstreno, double calificacion, double popularidad) {
         this.idDocumental = idDocumental;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -22,7 +21,6 @@ public class Documental {
         this.fechaEstreno = fechaEstreno;
         this.calificacion = calificacion;
         this.popularidad = popularidad;
-        this.idClasificacion = idClasificacion;
     }
 
     public int getIdDocumental() {
@@ -81,25 +79,4 @@ public class Documental {
         this.popularidad = popularidad;
     }
 
-    public int getIdClasificacion() {
-        return idClasificacion;
-    }
-
-    public void setIdClasificacion(int idClasificacion) {
-        this.idClasificacion = idClasificacion;
-    }
-
-    @Override
-    public String toString() {
-        return "Documental{" +
-                "idDocumental=" + idDocumental +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", poster='" + poster + '\'' +
-                ", fechaEstreno='" + fechaEstreno + '\'' +
-                ", calificacion=" + calificacion +
-                ", popularidad=" + popularidad +
-                ", idClasificacion=" + idClasificacion +
-                '}';
-    }
 }

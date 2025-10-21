@@ -30,14 +30,17 @@ public class UsuarioController {
 		}
 	}
 	
-	@PostMapping("crearusuario")
-	public ResponseEntity<String> crearUsuario (@RequestBody String codigo){
-		int rta = usuarioService.crearUsuario(codigo);
-		if(rta == 1) {
-			return new ResponseEntity<>("UsuarioCreado", HttpStatus.CREATED);
-		}else {
-			return new ResponseEntity<>("No se logro crear", HttpStatus.NOT_ACCEPTABLE);
-		}
+	@PostMapping("/crearusuario")
+	public ResponseEntity<String> crearUsuario(@RequestBody String codigo) {
+	    System.out.println("En el controller (limpio): " + codigo);
+
+	    int rta = usuarioService.crearUsuario(codigo);
+	    if (rta == 1) {
+	        return new ResponseEntity<>("Usuario creado", HttpStatus.CREATED);
+	    } else {
+	        return new ResponseEntity<>("No se logró crear", HttpStatus.NOT_ACCEPTABLE);
+	    }
 	}
+
 	
 }

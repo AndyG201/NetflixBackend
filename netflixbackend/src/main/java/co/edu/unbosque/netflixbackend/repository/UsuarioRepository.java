@@ -12,12 +12,12 @@ import co.edu.unbosque.netflixbackend.model.Usuario;
 public class UsuarioRepository {
 	
 	@Autowired
-	private static ConexionDB conexionDB = new ConexionDB();
+	private ConexionDB conexionDB;
 	
 	
 	public boolean crearUsuario(Usuario usuario) {
-	    String sql = "INSERT INTO usuario (primerNombre, primerApellido, correo, telefono, fechaNacimiento, contrasenia) "
-	               + "VALUES (?, ?, ?, ?, ?, ?)";
+	    String sql = "INSERT INTO usuario (primer_nombre, primer_apellido, correo, telefono, fecha_nacimiento, contrasenia, fecha_registro, id_estado)"
+	               + "VALUES (?, ?, ?, ?, ?, ?,?,?)";
 
 	    try (Connection conn = conexionDB.obtenerConexion();
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -26,8 +26,11 @@ public class UsuarioRepository {
 	        ps.setString(2, usuario.getPrimerApellido());
 	        ps.setString(3, usuario.getCorreo());
 	        ps.setString(4, usuario.getTelefono());
-	        ps.setTimestamp(5, Timestamp.valueOf(usuario.getFechaNacimiento())); 
+	        ps.setTimestamp(5, Timestamp.valueOf(usuario.getFechaNacimiento().atStartOfDay()));
 	        ps.setString(6, usuario.getContrasenia());
+	        ps.setTimestamp(7, Timestamp.valueOf(usuario.getFechaRegistro()));
+	        ps.setInt(8, usuario.getIdEstado());
+
 
 	        int filasInsertadas = ps.executeUpdate();
 
@@ -44,7 +47,7 @@ public class UsuarioRepository {
 
 
 	
-	public static boolean eliminarUsuario(int idUsuario) {
+	public boolean eliminarUsuario(int idUsuario) {
 		String sql = "DELETE FROM usuario WHERE idUsuario = ?";
 		try (Connection conn = conexionDB.obtenerConexion();
 		PreparedStatement ps = conn.prepareStatement(sql)){
@@ -75,15 +78,15 @@ public class UsuarioRepository {
 	        try (ResultSet rs = ps.executeQuery()) {
 	            if (rs.next()) {
 	                usuario = new Usuario();
-	                usuario.setIdUsuario(rs.getInt("idUsuario"));
-	                usuario.setPrimerNombre(rs.getString("primerNombre"));
-	                usuario.setPrimerApellido(rs.getString("primerApellido"));
+	                usuario.setIdUsuario(rs.getInt("id_usuario"));
+	                usuario.setPrimerNombre(rs.getString("primer_nombre"));
+	                usuario.setPrimerApellido(rs.getString("primer_apellido"));
 	                usuario.setCorreo(rs.getString("correo"));
 	                usuario.setTelefono(rs.getString("telefono"));
 
-	                Timestamp fecha = rs.getTimestamp("fechaNacimiento");
+	                Timestamp fecha = rs.getTimestamp("fecha_nacimiento");
 	                if (fecha != null) {
-	                    usuario.setFechaNacimiento(fecha.toLocalDateTime());
+	                    usuario.setFechaNacimiento(fecha.toLocalDateTime().toLocalDate());
 	                }
 
 	                usuario.setContrasenia(rs.getString("contrasenia"));
@@ -107,8 +110,8 @@ public class UsuarioRepository {
 			){
 				while(rs.next()) {
 					
-					String nombre =rs.getString("primerNombre");
-					String apellido = rs.getString("primerApellido");
+					String nombre =rs.getString("primer_nombre");
+					String apellido = rs.getString("primer_apellido");
 					Usuario u = new Usuario();
 					usuarios.add(u);
 				}

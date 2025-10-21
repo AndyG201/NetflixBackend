@@ -19,8 +19,8 @@ public class DocumentalRepository {
     private ConexionDB conexionDB = new ConexionDB();
 
     public boolean agregarDocumental(Documental documental) {
-        String sql = "INSERT INTO documental (nombre, descripcion, poster, fechaEstreno, calificacion, popularidad, idClasificacion) "
-                   + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO documental (nombre, descripcion, poster, fecha_estreno, calificacion, popularidad) "
+                   + "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = conexionDB.obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -31,7 +31,6 @@ public class DocumentalRepository {
             ps.setString(4, documental.getFechaEstreno());
             ps.setDouble(5, documental.getCalificacion());
             ps.setDouble(6, documental.getPopularidad());
-            ps.setInt(7, documental.getIdClasificacion());
 
             int filasInsertadas = ps.executeUpdate();
             return filasInsertadas > 0;
@@ -54,14 +53,13 @@ public class DocumentalRepository {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     documental = new Documental();
-                    documental.setIdDocumental(rs.getInt("idDocumental"));
+                    documental.setIdDocumental(rs.getInt("id_documental"));
                     documental.setNombre(rs.getString("nombre"));
                     documental.setDescripcion(rs.getString("descripcion"));
                     documental.setPoster(rs.getString("poster"));
-                    documental.setFechaEstreno(rs.getString("fechaEstreno"));
+                    documental.setFechaEstreno(rs.getString("fecha_estreno"));
                     documental.setCalificacion(rs.getDouble("calificacion"));
                     documental.setPopularidad(rs.getDouble("popularidad"));
-                    documental.setIdClasificacion(rs.getInt("idClasificacion"));
                 }
             }
 
@@ -89,7 +87,6 @@ public class DocumentalRepository {
                 documental.setFechaEstreno(rs.getString("fechaEstreno"));
                 documental.setCalificacion(rs.getDouble("calificacion"));
                 documental.setPopularidad(rs.getDouble("popularidad"));
-                documental.setIdClasificacion(rs.getInt("idClasificacion"));
                 documentales.add(documental);
             }
 
@@ -110,14 +107,13 @@ public class DocumentalRepository {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Documental documental = new Documental();
-                    documental.setIdDocumental(rs.getInt("idDocumental"));
+                    documental.setIdDocumental(rs.getInt("id_documental"));
                     documental.setNombre(rs.getString("nombre"));
                     documental.setDescripcion(rs.getString("descripcion"));
                     documental.setPoster(rs.getString("poster"));
-                    documental.setFechaEstreno(rs.getString("fechaEstreno"));
+                    documental.setFechaEstreno(rs.getString("fecha_estreno"));
                     documental.setCalificacion(rs.getDouble("calificacion"));
                     documental.setPopularidad(rs.getDouble("popularidad"));
-                    documental.setIdClasificacion(rs.getInt("idClasificacion"));
                     documentales.add(documental);
                 }
             }
