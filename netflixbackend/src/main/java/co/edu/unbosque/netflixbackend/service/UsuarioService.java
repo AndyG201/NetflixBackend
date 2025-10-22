@@ -2,7 +2,6 @@ package co.edu.unbosque.netflixbackend.service;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,9 +45,7 @@ public class UsuarioService {
     
     public int crearUsuario(String codigo) {
         codigo = codigo.replace("\"", "").trim();
-        System.out.println("En el service (limpio): " + codigo);
         UsuarioDTO usuarioDTO = usuariosPendientes.get(codigo);
-        System.out.println("Usuario encontrado en mapa: " + usuarioDTO);
         if (usuarioDTO != null) {
             usuarioRepository.crearUsuario(modelMapper.map(usuarioDTO, Usuario.class));
             usuariosPendientes.remove(codigo);
@@ -57,6 +54,10 @@ public class UsuarioService {
         return 0;
     }
 
+    public UsuarioDTO login (String correo, String contrasenia) {
+    	Usuario found = usuarioRepository.login(correo, contrasenia);
+    	return modelMapper.map(found, UsuarioDTO.class);
+    }
 
 	public boolean buscarPorCorreo (String correo) {
 		Usuario usuario = usuarioRepository.findByEmail(correo);

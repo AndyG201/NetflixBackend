@@ -3,25 +3,33 @@ package co.edu.unbosque.netflixbackend.model;
 import java.time.LocalDateTime;
 
 public class UsuarioSuscripcion {
+	private int idUsuarioSuscripcion;
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFin;
-	private String estado;
+	private int idEstado;
 	private int idUsuario;
 	private int idSuscripción;
 	
 	public UsuarioSuscripcion() {
 	}
-	
-	public UsuarioSuscripcion(LocalDateTime fechaInicio, LocalDateTime fechaFin, String estado, int idUsuario,
+
+	public UsuarioSuscripcion(LocalDateTime fechaInicio, LocalDateTime fechaFin, int idEstado, int idUsuario,
 			int idSuscripción) {
 		super();
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
-		this.estado = estado;
+		this.idEstado = idEstado;
 		this.idUsuario = idUsuario;
 		this.idSuscripción = idSuscripción;
 	}
-	
+
+	public int getIdUsuarioSuscripcion() {
+		return idUsuarioSuscripcion;
+	}
+
+	public void setIdUsuarioSuscripcion(int idUsuarioSuscripcion) {
+		this.idUsuarioSuscripcion = idUsuarioSuscripcion;
+	}
 
 	public LocalDateTime getFechaInicio() {
 		return fechaInicio;
@@ -39,12 +47,12 @@ public class UsuarioSuscripcion {
 		this.fechaFin = fechaFin;
 	}
 
-	public String getEstado() {
-		return estado;
+	public int getIdEstado() {
+		return idEstado;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setIdEstado(int idEstado) {
+		this.idEstado = idEstado;
 	}
 
 	public int getIdUsuario() {
@@ -62,15 +70,5 @@ public class UsuarioSuscripcion {
 	public void setIdSuscripción(int idSuscripción) {
 		this.idSuscripción = idSuscripción;
 	}
-
-	@Override
-	public String toString() {
-		return "UsuarioSuscripcion [fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", estado=" + estado
-				+ ", idUsuario=" + idUsuario + ", idSuscripción=" + idSuscripción + "]";
-	}
-	
-
-
-	
 
 }

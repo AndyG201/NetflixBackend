@@ -3,6 +3,7 @@ package co.edu.unbosque.netflixbackend.dto;
 import java.time.LocalDateTime;
 
 public class UsuarioSuscripcionDTO {
+	private int idUsuarioSuscripcion;
 	private LocalDateTime fechaInicio;
 	private LocalDateTime fechaFin;
 	private String estado;
@@ -11,7 +12,7 @@ public class UsuarioSuscripcionDTO {
 	
 	public UsuarioSuscripcionDTO() {
 	}
-	
+
 	public UsuarioSuscripcionDTO(LocalDateTime fechaInicio, LocalDateTime fechaFin, String estado, int idUsuario,
 			int idSuscripción) {
 		super();
@@ -21,7 +22,14 @@ public class UsuarioSuscripcionDTO {
 		this.idUsuario = idUsuario;
 		this.idSuscripción = idSuscripción;
 	}
-	
+
+	public int getIdUsuarioSuscripcion() {
+		return idUsuarioSuscripcion;
+	}
+
+	public void setIdUsuarioSuscripcion(int idUsuarioSuscripcion) {
+		this.idUsuarioSuscripcion = idUsuarioSuscripcion;
+	}
 
 	public LocalDateTime getFechaInicio() {
 		return fechaInicio;
@@ -61,12 +69,6 @@ public class UsuarioSuscripcionDTO {
 
 	public void setIdSuscripción(int idSuscripción) {
 		this.idSuscripción = idSuscripción;
-	}
-
-	@Override
-	public String toString() {
-		return "UsuarioSuscripcion [fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", estado=" + estado
-				+ ", idUsuario=" + idUsuario + ", idSuscripción=" + idSuscripción + "]";
 	}
 	
 }

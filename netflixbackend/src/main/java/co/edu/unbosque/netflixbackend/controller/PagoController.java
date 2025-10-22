@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.unbosque.netflixbackend.dto.PagoDTO;
 import co.edu.unbosque.netflixbackend.service.GeneradorPdfService;
 import co.edu.unbosque.netflixbackend.service.PagoService;
+import co.edu.unbosque.netflixbackend.service.UsuarioSuscripcionService;
 
 @RestController
 @RequestMapping("/pago")
@@ -22,6 +23,9 @@ public class PagoController {
 	
 	@Autowired
 	private PagoService pagoService;
+	
+	@Autowired
+	private UsuarioSuscripcionService usuarioSuscripcionService;
 	
 	@Autowired
 	private GeneradorPdfService generadorPdfService;
@@ -38,6 +42,7 @@ public class PagoController {
 	
 	@GetMapping
 	public ResponseEntity<String> enviarPdf (@RequestParam String referencia){
+		usuarioSuscripcionService.adquirirSuscripcion(referencia);
 		return new ResponseEntity<String>(generadorPdfService.crearPdf(referencia),HttpStatus.ACCEPTED);
 	}
 

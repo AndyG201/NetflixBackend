@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unbosque.netflixbackend.dto.UsuarioDTO;
@@ -40,6 +41,12 @@ public class UsuarioController {
 	    } else {
 	        return new ResponseEntity<>("No se logró crear", HttpStatus.NOT_ACCEPTABLE);
 	    }
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<UsuarioDTO> login(@RequestParam String correo, String contrasenia){
+		UsuarioDTO found = usuarioService.login(correo, contrasenia);
+		return new ResponseEntity<UsuarioDTO>(found, HttpStatus.ACCEPTED);
 	}
 
 	

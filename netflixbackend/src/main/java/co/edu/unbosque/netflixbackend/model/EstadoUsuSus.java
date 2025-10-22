@@ -1,16 +1,14 @@
 package co.edu.unbosque.netflixbackend.model;
 
-public class EstadoCuenta {
-
+public class EstadoUsuSus {
 	private int idEstado;
 	private String nombreEstado;
 	
-	public EstadoCuenta() {
+	public EstadoUsuSus() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EstadoCuenta(String nombreEstado) {
-		super();
+	public EstadoUsuSus(String nombreEstado) {
 		this.nombreEstado = nombreEstado;
 	}
 
@@ -30,5 +28,5 @@ public class EstadoCuenta {
 		this.nombreEstado = nombreEstado;
 	}
 	
-	
+
 }

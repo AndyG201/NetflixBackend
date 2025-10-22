@@ -153,6 +153,38 @@ public class UsuarioRepository {
 	    return usuario; 
 	}
 	
+	public Usuario login(String correo, String contrasenia) {
+		Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM usuario WHERE correo = ? AND contrasenia = ?";
+        try (Connection conn = conexionDB.obtenerConexion();
+        		PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, correo);
+            ps.setString(2, contrasenia); 
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+            	usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("id_usuario"));
+                usuario.setPrimerNombre(rs.getString("primer_nombre"));
+                usuario.setPrimerApellido(rs.getString("primer_apellido"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setTelefono(rs.getString("telefono"));
+
+                Timestamp fecha = rs.getTimestamp("fecha_nacimiento");
+                if (fecha != null) {
+                    usuario.setFechaNacimiento(fecha.toLocalDateTime().toLocalDate());
+                }
+
+                usuario.setContrasenia(rs.getString("contrasenia"));
+                return usuario;
+            } else {
+                return null; 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 	
 
 }
