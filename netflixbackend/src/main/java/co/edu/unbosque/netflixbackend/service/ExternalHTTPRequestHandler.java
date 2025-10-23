@@ -160,6 +160,61 @@ public class ExternalHTTPRequestHandler {
 
         return listaPeliculas;
     }
+    
+    public static String obtenerUrlYoutubePelicula(String titulo) {
+        final String API_KEY = "4584014a9db6264fabab2596a1da86b2"; // 🔑 tu API de TMDb
+        try {
+            // 1️⃣ Codificar el título para usarlo en la URL
+            String encodedTitle = java.net.URLEncoder.encode(titulo, java.nio.charset.StandardCharsets.UTF_8);
+            
+            // 2️⃣ Buscar la película por nombre
+            String urlBuscar = "https://api.themoviedb.org/3/search/movie?api_key=" 
+                    + API_KEY + "&language=es-ES&query=" + encodedTitle;
+            String responseBuscar = doGet(urlBuscar);
+            if (responseBuscar == null) return null;
+
+            JsonObject jsonBuscar = JsonParser.parseString(responseBuscar).getAsJsonObject();
+            JsonArray resultados = jsonBuscar.getAsJsonArray("results");
+            if (resultados.size() == 0) return null;
+
+            // 3️⃣ Tomar el primer resultado
+            int idPelicula = resultados.get(0).getAsJsonObject().get("id").getAsInt();
+
+            // 4️⃣ Buscar los videos asociados
+            String urlVideos = "https://api.themoviedb.org/3/movie/" + idPelicula + "/videos?api_key=" 
+                    + API_KEY + "&language=es-ES";
+            String responseVideos = doGet(urlVideos);
+            if (responseVideos == null) return null;
+
+            JsonObject jsonVideos = JsonParser.parseString(responseVideos).getAsJsonObject();
+            JsonArray videos = jsonVideos.getAsJsonArray("results");
+            if (videos.size() == 0) return null;
+
+            // 5️⃣ Buscar el primer video de YouTube (tráiler o teaser)
+            for (JsonElement e : videos) {
+                JsonObject video = e.getAsJsonObject();
+                String site = video.has("site") ? video.get("site").getAsString() : "";
+                String type = video.has("type") ? video.get("type").getAsString() : "";
+                boolean oficial = video.has("official") && video.get("official").getAsBoolean();
+
+                if ("YouTube".equalsIgnoreCase(site) && oficial && 
+                    (type.equalsIgnoreCase("Trailer") || type.equalsIgnoreCase("Teaser"))) {
+                    String key = video.get("key").getAsString();
+                    return "https://www.youtube.com/watch?v=" + key;
+                }
+            }
+
+            // 6️⃣ Si no hay tráiler oficial, devolver el primer video disponible
+            JsonObject videoPrimero = videos.get(0).getAsJsonObject();
+            String key = videoPrimero.get("key").getAsString();
+            return "https://www.youtube.com/watch?v=" + key;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     // 🔸 Convierte JSON en objetos Documental
     public static List<Documental> obtenerDocumentales(int totalPages) {
@@ -189,49 +244,55 @@ public class ExternalHTTPRequestHandler {
     
     // 🔹 Método principal de prueba
     public static void main(String[] args) {
-    	/*Random random = new Random();
+    	Random random = new Random();
     	PeliculaRepository repoPeliculas = new PeliculaRepository();
-    	List<Pelicula> peliculas = obtenerPeliculas(5);
-    	
+    	List<Pelicula> peliculas = obtenerPeliculas(10);
 
     	for (Pelicula p : peliculas) {
-    	    // Calificación aleatoria entre 1.0 y 10.0
-    	    double calificacion = 1.0 + (9.0 * random.nextDouble());
+    	    // Calificación aleatoria entre 0.0 y 10.0, redondeada a 1 decimal
+    		double calificacion = Math.min(10.0, Math.round((1.0 + random.nextDouble() * 9.0) * 10.0) / 10.0);
 
-    	    // Popularidad aleatoria entre 0 y 100
-    	    double popularidad = random.nextDouble() * 100;
+    	    // Popularidad aleatoria entre 0 y 100, redondeada a entero
+    	    int popularidad = random.nextInt(101); // incluye el 100
 
     	    p.setCalificacion(calificacion);
     	    p.setPopularidad(popularidad);
+
+    	    // URL del tráiler o teaser desde TMDb
+    	    String url = obtenerUrlYoutubePelicula(p.getNombre());
+    	    p.setUrlPelicula(url);
 
     	    repoPeliculas.agregarPelicula(p);
 
     	    System.out.println("🎬 Agregada película: " + p.getNombre() + 
     	        " | ⭐ " + String.format("%.1f", p.getCalificacion()) + 
-    	        " | 📈 " + String.format("%.1f", p.getPopularidad()));
+    	        " | 📈 " + p.getPopularidad());
     	}
 
         
 
     	DocumentalRepository documentalRepository = new DocumentalRepository();
-    	List<Documental> documentales = obtenerDocumentales(4);
-    	 
+    	List<Documental> documentales = obtenerDocumentales(10);
+
     	for (Documental d : documentales) {
-    	    double calificacion = 1.0 + (9.0 * random.nextDouble()); // entre 1.0 y 10.0
-    	    double popularidad = random.nextDouble() * 100;
+    		double calificacion = Math.min(10.0, Math.round((1.0 + random.nextDouble() * 9.0) * 10.0) / 10.0);
+    	    int popularidad = random.nextInt(101);
 
     	    d.setCalificacion(calificacion);
     	    d.setPopularidad(popularidad);
 
-    	   
+    	    String url = obtenerUrlYoutubePelicula(d.getNombre());
+    	    d.setUrlDocumental(url);
+
     	    documentalRepository.agregarDocumental(d);
 
     	    System.out.println("🎥 Agregado documental: " + d.getNombre() +
     	        " | ⭐ " + String.format("%.1f", d.getCalificacion()) +
-    	        " | 📈 " + String.format("%.1f", d.getPopularidad()));
-    	}*/
-    	GeneroRepository repoGeneros = new GeneroRepository();
+    	        " | 📈 " + d.getPopularidad());
+    	}
 
+    	GeneroRepository repoGeneros = new GeneroRepository();
+/*
         // ✅ Obtener lista desde la API
         List<Genero> generos = obtenerGeneros();
 
@@ -244,7 +305,7 @@ public class ExternalHTTPRequestHandler {
             } else {
                 System.out.println("⚠️ No se pudo agregar: " + g.getNombre());
             }
-        }
+        }*/
 
     }
 }

@@ -19,8 +19,8 @@ public class PeliculaRepository {
 	private ConexionDB conexionDB = new ConexionDB();
 	
 	public boolean agregarPelicula(Pelicula pelicula) {
-	    String sql = "INSERT INTO pelicula (nombre, descripcion, poster, fecha_estreno, calificacion, popularidad) "
-	               + "VALUES (?, ?, ?, ?, ?, ?)";
+	    String sql = "INSERT INTO pelicula (nombre, descripcion, poster, fecha_estreno, calificacion, popularidad, url_pelicula) "
+	               + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 	    try (Connection conn = conexionDB.obtenerConexion();
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -31,6 +31,7 @@ public class PeliculaRepository {
 	        ps.setString(4, pelicula.getFechaEstreno());
 	        ps.setDouble(5, pelicula.getCalificacion());
 	        ps.setDouble(6, pelicula.getPopularidad());
+	        ps.setString(7, pelicula.getUrlPelicula());
 
 	        int filasInsertadas = ps.executeUpdate();
 	        return filasInsertadas > 0;
@@ -61,6 +62,7 @@ public class PeliculaRepository {
 	                pelicula.setFechaEstreno(rs.getString("fecha_estreno"));
 	                pelicula.setCalificacion(rs.getDouble("calificacion"));
 	                pelicula.setPopularidad(rs.getDouble("popularidad"));
+	                pelicula.setUrlPelicula(rs.getString("url_pelicula"));
 	            }
 	        }
 
@@ -87,6 +89,7 @@ public class PeliculaRepository {
 	            pelicula.setFechaEstreno(rs.getString("fecha_estreno"));
 	            pelicula.setCalificacion(rs.getDouble("calificacion"));
 	            pelicula.setPopularidad(rs.getDouble("popularidad"));
+	            pelicula.setUrlPelicula(rs.getString("url_pelicula"));
 	            peliculas.add(pelicula);
 	        }
 
@@ -114,6 +117,7 @@ public class PeliculaRepository {
 	                pelicula.setFechaEstreno(rs.getString("fecha_estreno"));
 	                pelicula.setCalificacion(rs.getDouble("calificacion"));
 	                pelicula.setPopularidad(rs.getDouble("popularidad"));
+	                pelicula.setUrlPelicula(rs.getString("url_pelicula"));
 	                peliculas.add(pelicula);
 	            }
 	        }

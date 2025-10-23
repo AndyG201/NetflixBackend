@@ -22,7 +22,7 @@ public class UsuarioSuscripcionRepository {
 
 	    int estado = 1;
 	    LocalDateTime fechaInicio = LocalDateTime.now();
-	    LocalDateTime fechaFin = fechaInicio.plusDays(30);
+	    LocalDateTime fechaFin = fechaInicio.plusDays(obtenerDiasSuscripcion(codigoSuscripcion));
 
 	    try (Connection con = conexionDB.obtenerConexion();
 	         PreparedStatement ps = con.prepareStatement(sql)) {

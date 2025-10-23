@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unbosque.netflixbackend.dto.PeliculaDTO;
@@ -24,7 +24,7 @@ public class PeliculaController {
 	private PeliculaService peliculaService;
 	
 	@GetMapping("obtenerpeliculapornombre")
-	public ResponseEntity<PeliculaDTO> obtenerPeliculaPorNombre (@RequestBody String nombre){
+	public ResponseEntity<PeliculaDTO> obtenerPeliculaPorNombre (@RequestParam String nombre){
 		PeliculaDTO encontrada = peliculaService.buscarPorNombre(nombre.toLowerCase());
 		if(encontrada != null) {
 			return new ResponseEntity<PeliculaDTO>(encontrada, HttpStatus.ACCEPTED);
@@ -34,7 +34,7 @@ public class PeliculaController {
 	}
 	
 	 @GetMapping("/obtenerpeliculaspopulares")
-	    public ResponseEntity<List<Pelicula>> obtenerPeliculasPorPopularidad(@RequestBody double minPopularidad) {
+	    public ResponseEntity<List<Pelicula>> obtenerPeliculasPorPopularidad(@RequestParam double minPopularidad) {
 	        List<Pelicula> peliculas = peliculaService.buscarPorPopularidad(minPopularidad);
 	        if (peliculas.isEmpty()) {
 	            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
