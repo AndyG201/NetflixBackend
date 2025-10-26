@@ -1,28 +1,29 @@
-package co.edu.unbosque.netflixbackend.model;
+package co.edu.unbosque.netflixbackend.dto;
 
-public class Serie {
-    private int idSerie;
-    private String titulo;
-    private String descripcion;
-    private String fechaEstreno;
-    private String poster;
-    private double calificacion;
-    private int popularidad;
+public class SerieDTO {
 
-    public Serie() {
-		// TODO Auto-generated constructor stub
-	}
+	private int idSerie;
+	private String titulo;
+	private String descripcion;
+	private String fechaEstreno;
+	private String poster;
+	private double calificacion;
+	private int popularidad;
 
-	public Serie(String titulo, String descripcion, String fechaEstreno, String poster, double calificacion,
-			int popularidad) {
-		super();
-		this.titulo = titulo;
-		this.descripcion = descripcion;
-		this.fechaEstreno = fechaEstreno;
-		this.poster = poster;
-		this.calificacion = calificacion;
-		this.popularidad = popularidad;
-	}
+	public SerieDTO() {
+			// TODO Auto-generated constructor stub
+		}
+
+	public SerieDTO(String titulo, String descripcion, String fechaEstreno, String poster, double calificacion,
+				int popularidad) {
+			super();
+			this.titulo = titulo;
+			this.descripcion = descripcion;
+			this.fechaEstreno = fechaEstreno;
+			this.poster = poster;
+			this.calificacion = calificacion;
+			this.popularidad = popularidad;
+		}
 
 	public int getIdSerie() {
 		return idSerie;
@@ -79,5 +80,5 @@ public class Serie {
 	public void setPopularidad(int popularidad) {
 		this.popularidad = popularidad;
 	}
-    
+
 }

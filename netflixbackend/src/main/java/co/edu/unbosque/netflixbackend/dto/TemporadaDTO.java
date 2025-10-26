@@ -1,17 +1,17 @@
-package co.edu.unbosque.netflixbackend.model;
+package co.edu.unbosque.netflixbackend.dto;
 
-
-public class Temporada {
-    private int idTemporada;
+public class TemporadaDTO {
+	
+	private int idTemporada;
     private int numeroTemporada;
     private int anioEstreno;
     private int idSerie;
 
-    public Temporada() {
+    public TemporadaDTO() {
     	
     }
 
-	public Temporada(int numeroTemporada, int anioEstreno, int idSerie) {
+	public TemporadaDTO(int numeroTemporada, int anioEstreno, int idSerie) {
 		super();
 		this.numeroTemporada = numeroTemporada;
 		this.anioEstreno = anioEstreno;

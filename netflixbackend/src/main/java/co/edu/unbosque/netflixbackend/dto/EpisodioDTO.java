@@ -1,6 +1,7 @@
-package co.edu.unbosque.netflixbackend.model;
+package co.edu.unbosque.netflixbackend.dto;
 
-public class Episodio {
+public class EpisodioDTO {
+	
 	private int idEpisodio;
 	private String titulo;
 	private int numeroEpisodio;
@@ -9,10 +10,10 @@ public class Episodio {
 	private String urlEpisodio;
 	private int idTemporada;
 
-	public Episodio() {
+	public EpisodioDTO() {
 	}
 
-	public Episodio(int idEpisodio, String titulo, int numeroEpisodio, String descripcion, String poster,
+	public EpisodioDTO(int idEpisodio, String titulo, int numeroEpisodio, String descripcion, String poster,
 			String urlEpisodio, int idTemporada) {
 		this.idEpisodio = idEpisodio;
 		this.titulo = titulo;
@@ -79,4 +80,5 @@ public class Episodio {
 	public void setIdTemporada(int idTemporada) {
 		this.idTemporada = idTemporada;
 	}
+
 }
