@@ -41,7 +41,7 @@ public class MailService {
         mensaje.setTo(destinatario);
         mensaje.setSubject("Refrencia de pago");
         mensaje.setText("Tu referencia para hacer el pago de tu suscripción es: " + referencia);
-        mensaje.setFrom("pokemonr649@gmail.com"); 
+        mensaje.setFrom("baseflix91@gmail.com"); 
 
         javaMailSender.send(mensaje);
         return true;
@@ -50,9 +50,9 @@ public class MailService {
     public void enviarCorreoBienvenida(String destinatario) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         mensaje.setTo(destinatario);
-        mensaje.setSubject("¡Bienvenido a NetflixBackend!");
+        mensaje.setSubject("¡Bienvenido a baseflix91");
         mensaje.setText("Gracias por registrarte. Esperamos que disfrutes de la plataforma.");
-        mensaje.setFrom("pokemonr649@gmail.com"); 
+        mensaje.setFrom("baseflix91@gmail.com"); 
 
         javaMailSender.send(mensaje);
     }
@@ -63,17 +63,17 @@ public class MailService {
             MimeMessageHelper helper = new MimeMessageHelper(mensaje, true);
 
             helper.setTo(destinatario);
-            helper.setSubject("Recibo de Pago - NetflixBackend");
+            helper.setSubject("Recibo de Pago - baseflix91");
             helper.setText("""
                     Hola 👋,
                     
-                    Adjuntamos tu recibo de pago correspondiente a tu suscripción en NetflixBackend.
+                    Adjuntamos tu recibo de pago correspondiente a tu suscripción en baseflix91.
                     
                     Gracias por confiar en nosotros y disfrutar de nuestro contenido 🎬🍿
                     
-                    — El equipo de NetflixBackend
+                    — El equipo de baseflix91
                     """, false);
-            helper.setFrom("pokemonr649@gmail.com");
+            helper.setFrom("baseflix91@gmail.com");
 
             File archivo = new File(rutaPdf);
             if (!archivo.exists()) {
