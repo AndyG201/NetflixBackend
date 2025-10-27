@@ -26,7 +26,7 @@ public class MailService {
         mensaje.setTo(destinatario);
         mensaje.setSubject("Código de Confirmación");
         mensaje.setText("Tu código de confirmación es: " + codigo);
-        mensaje.setFrom("pokemonr649@gmail.com"); 
+        mensaje.setFrom("baseflix91@gmail.com"); 
 
         javaMailSender.send(mensaje);
         return true;
