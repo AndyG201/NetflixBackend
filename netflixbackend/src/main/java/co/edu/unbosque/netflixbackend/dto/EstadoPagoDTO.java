@@ -5,6 +5,11 @@ public class EstadoPagoDTO {
 	private int idPago;
 	private String nombreEstado;
 	
+	public EstadoPagoDTO(int idPago, String nombreEstado) {
+		this.idPago = idPago;
+		this.nombreEstado = nombreEstado;
+	}
+
 	public EstadoPagoDTO() {
 		// TODO Auto-generated constructor stub
 	}

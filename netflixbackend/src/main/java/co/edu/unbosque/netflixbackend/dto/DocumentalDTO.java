@@ -1,8 +1,22 @@
 package co.edu.unbosque.netflixbackend.dto;
 
 public class DocumentalDTO {
+	
+	
 
-    private int idDocumental; 
+    public DocumentalDTO(int idDocumental, String nombre, String descripcion, String poster, String fechaEstreno,
+			double calificacion, double popularidad, String urlDocumental) {
+		this.idDocumental = idDocumental;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.poster = poster;
+		this.fechaEstreno = fechaEstreno;
+		this.calificacion = calificacion;
+		this.popularidad = popularidad;
+		this.urlDocumental = urlDocumental;
+	}
+
+	private int idDocumental; 
     private String nombre; 
     private String descripcion; 
     private String poster; 

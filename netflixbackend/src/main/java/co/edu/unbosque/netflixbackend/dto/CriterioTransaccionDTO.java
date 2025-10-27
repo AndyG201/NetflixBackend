@@ -1,6 +1,11 @@
 package co.edu.unbosque.netflixbackend.dto;
 
 public class CriterioTransaccionDTO {
+	
+	public CriterioTransaccionDTO(int idCriterioTransaccion, String criterio) {
+		this.idCriterioTransaccion = idCriterioTransaccion;
+		this.criterio = criterio;
+	}
 
 	public int idCriterioTransaccion;
 	public String criterio;

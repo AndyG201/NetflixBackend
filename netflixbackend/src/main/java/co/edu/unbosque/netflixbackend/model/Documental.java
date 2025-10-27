@@ -11,7 +11,19 @@ public class Documental {
     private double popularidad;
     private String urlDocumental;
 
-    public Documental() {}
+    public Documental(int idDocumental, String nombre, String descripcion, String poster, String fechaEstreno,
+			double calificacion, double popularidad, String urlDocumental) {
+		this.idDocumental = idDocumental;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.poster = poster;
+		this.fechaEstreno = fechaEstreno;
+		this.calificacion = calificacion;
+		this.popularidad = popularidad;
+		this.urlDocumental = urlDocumental;
+	}
+
+	public Documental() {}
 
 	public Documental(String nombre, String descripcion, String poster, String fechaEstreno, double calificacion,
 			double popularidad, String urlDocumental) {

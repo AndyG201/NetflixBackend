@@ -10,6 +10,16 @@ public class UsuarioSuscripcionDTO {
 	private int idUsuario;
 	private int idSuscripción;
 	
+	public UsuarioSuscripcionDTO(int idUsuarioSuscripcion, LocalDateTime fechaInicio, LocalDateTime fechaFin,
+			String estado, int idUsuario, int idSuscripción) {
+		this.idUsuarioSuscripcion = idUsuarioSuscripcion;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.estado = estado;
+		this.idUsuario = idUsuario;
+		this.idSuscripción = idSuscripción;
+	}
+
 	public UsuarioSuscripcionDTO() {
 	}
 

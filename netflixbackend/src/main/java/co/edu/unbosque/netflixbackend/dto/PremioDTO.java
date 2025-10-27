@@ -10,8 +10,21 @@ public class PremioDTO {
     private String recompensa;
     private String fechaInicio;
     private String fechaFin;
+    
 
-    public PremioDTO() {
+    public PremioDTO(int idPremio, String nombre, String descripcion, String tipoPremio, String criterio,
+			String recompensa, String fechaInicio, String fechaFin) {
+		this.idPremio = idPremio;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.tipoPremio = tipoPremio;
+		this.criterio = criterio;
+		this.recompensa = recompensa;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+	}
+
+	public PremioDTO() {
     }
 
     public PremioDTO(String nombre, String descripcion, String tipoPremio, String criterio, String recompensa, String fechaInicio, String fechaFin) {

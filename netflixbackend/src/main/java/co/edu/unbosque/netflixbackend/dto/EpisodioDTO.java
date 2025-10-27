@@ -2,6 +2,8 @@ package co.edu.unbosque.netflixbackend.dto;
 
 public class EpisodioDTO {
 	
+	
+	
 	private int idEpisodio;
 	private String titulo;
 	private int numeroEpisodio;

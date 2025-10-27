@@ -13,6 +13,19 @@ public class PagoDTO {
 	private int idEstadoPago;
 	private int idMetodoPago;
 	
+	
+	public PagoDTO(int idPago, LocalDate fechaMaxima, String referencia, int monto, int idUsuario, int idSuscripcion,
+			int idEstadoPago, int idMetodoPago) {
+		this.idPago = idPago;
+		this.fechaMaxima = fechaMaxima;
+		this.referencia = referencia;
+		this.monto = monto;
+		this.idUsuario = idUsuario;
+		this.idSuscripcion = idSuscripcion;
+		this.idEstadoPago = idEstadoPago;
+		this.idMetodoPago = idMetodoPago;
+	}
+
 	public PagoDTO() {
 		// TODO Auto-generated constructor stub
 	}

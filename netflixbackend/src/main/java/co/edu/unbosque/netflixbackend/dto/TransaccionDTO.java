@@ -13,6 +13,17 @@ public class TransaccionDTO {
 	private int idEstadoTransaccion;
 	private int idCriterioTransaccion;
 	
+	public TransaccionDTO(int idTransaccion, int cantidad, LocalDateTime fecha, String descripcion, int idUsuario,
+			int idEstadoTransaccion, int idCriterioTransaccion) {
+		this.idTransaccion = idTransaccion;
+		this.cantidad = cantidad;
+		this.fecha = fecha;
+		this.descripcion = descripcion;
+		this.idUsuario = idUsuario;
+		this.idEstadoTransaccion = idEstadoTransaccion;
+		this.idCriterioTransaccion = idCriterioTransaccion;
+	}
+
 	public TransaccionDTO() {
 		// TODO Auto-generated constructor stub
 	}

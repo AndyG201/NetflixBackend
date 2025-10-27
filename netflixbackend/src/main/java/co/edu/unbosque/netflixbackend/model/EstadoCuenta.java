@@ -5,6 +5,11 @@ public class EstadoCuenta {
 	private int idEstado;
 	private String nombreEstado;
 	
+	public EstadoCuenta(int idEstado, String nombreEstado) {
+		this.idEstado = idEstado;
+		this.nombreEstado = nombreEstado;
+	}
+
 	public EstadoCuenta() {
 		// TODO Auto-generated constructor stub
 	}

@@ -5,6 +5,11 @@ public class MetodoPagoDTO {
 	private int idMetodoPago;
 	private String metodo;
 	
+	public MetodoPagoDTO(int idMetodoPago, String metodo) {
+		this.idMetodoPago = idMetodoPago;
+		this.metodo = metodo;
+	}
+
 	public MetodoPagoDTO() {
 		// TODO Auto-generated constructor stub
 	}

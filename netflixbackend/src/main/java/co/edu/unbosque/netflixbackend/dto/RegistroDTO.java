@@ -7,6 +7,11 @@ public class RegistroDTO {
 	private int idRegistro;
 	private LocalDate fechaRegistro;
 	
+	public RegistroDTO(int idRegistro, LocalDate fechaRegistro) {
+		this.idRegistro = idRegistro;
+		this.fechaRegistro = fechaRegistro;
+	}
+
 	public RegistroDTO() {
 		// TODO Auto-generated constructor stub
 	}

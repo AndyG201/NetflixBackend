@@ -10,6 +10,17 @@ public class SerieDTO {
 	private double calificacion;
 	private int popularidad;
 
+	public SerieDTO(int idSerie, String titulo, String descripcion, String fechaEstreno, String poster,
+			double calificacion, int popularidad) {
+		this.idSerie = idSerie;
+		this.titulo = titulo;
+		this.descripcion = descripcion;
+		this.fechaEstreno = fechaEstreno;
+		this.poster = poster;
+		this.calificacion = calificacion;
+		this.popularidad = popularidad;
+	}
+
 	public SerieDTO() {
 			// TODO Auto-generated constructor stub
 		}
