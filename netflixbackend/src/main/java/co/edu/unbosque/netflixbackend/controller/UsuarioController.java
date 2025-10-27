@@ -18,6 +18,8 @@ import co.edu.unbosque.netflixbackend.service.UsuarioService;
 @CrossOrigin(origins = { "*" })
 public class UsuarioController {
 
+	//si funciona 
+	
 	@Autowired
 	private UsuarioService usuarioService;
 	
