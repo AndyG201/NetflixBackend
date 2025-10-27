@@ -17,7 +17,6 @@ public class EpisodioRepository {
 	@Autowired
 	private ConexionDB conexionDB = new ConexionDB();
 
-	// INSERTAR un nuevo episodio
 	public void insertarEpisodio(Episodio episodio) throws SQLException {
 		String sql = "INSERT INTO episodio (titulo, numero_episodio, descripcion, poster, url_episodio, id_temporada) "
 				+ "VALUES (?, ?, ?, ?, ?, ?)";
@@ -36,7 +35,6 @@ public class EpisodioRepository {
 
 	}
 
-	// OBTENER todos los episodios
 	public List<Episodio> obtenerTodosLosEpisodios() {
 		List<Episodio> episodios = new ArrayList<>();
 		String sql = "SELECT * FROM episodio";
@@ -65,7 +63,6 @@ public class EpisodioRepository {
 		return episodios;
 	}
 
-	// OBTENER episodios por ID de temporada
 	public List<Episodio> obtenerEpisodiosPorTemporada(int idTemporada) {
 		List<Episodio> episodios = new ArrayList<>();
 		String sql = "SELECT * FROM episodio WHERE id_temporada = ?";
