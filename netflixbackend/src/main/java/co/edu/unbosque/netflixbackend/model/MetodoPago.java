@@ -15,11 +15,7 @@ public class MetodoPago {
 	}
 	
 
-	public MetodoPago(int idMetodoPago, String metodo) {
-		super();
-		this.idMetodoPago = idMetodoPago;
-		this.metodo = metodo;
-	}
+
 
 
 	public MetodoPago(String metodo) {

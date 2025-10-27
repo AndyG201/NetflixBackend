@@ -14,8 +14,9 @@ public class Usuario {
 	private String contrasenia;
 	private LocalDateTime fechaRegistro;
 	private int idEstado;
-	
-	public Usuario() {
+    private boolean primeraVez;
+
+    public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -106,8 +107,14 @@ public class Usuario {
 	public void setIdEstado(int idEstado) {
 		this.idEstado = idEstado;
 	}
-	
-	
+
+    public boolean isPrimeraVez() {
+        return primeraVez;
+    }
+
+    public void setPrimeraVez(boolean primeraVez) {
+        this.primeraVez = primeraVez;
+    }
 
 	
 }

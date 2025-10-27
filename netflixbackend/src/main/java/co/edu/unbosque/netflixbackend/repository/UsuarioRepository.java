@@ -13,41 +13,50 @@ public class UsuarioRepository {
 	
 	@Autowired
 	private ConexionDB conexionDB;
-	
-	
-	public boolean crearUsuario(Usuario usuario) {
-	    String sql = "INSERT INTO usuario (primer_nombre, primer_apellido, correo, telefono, fecha_nacimiento, contrasenia, fecha_registro, id_estado)"
-	               + "VALUES (?, ?, ?, ?, ?, ?,?,?)";
-
-	    try (Connection conn = conexionDB.obtenerConexion();
-	         PreparedStatement ps = conn.prepareStatement(sql)) {
-
-	        ps.setString(1, usuario.getPrimerNombre());
-	        ps.setString(2, usuario.getPrimerApellido());
-	        ps.setString(3, usuario.getCorreo());
-	        ps.setString(4, usuario.getTelefono());
-	        ps.setTimestamp(5, Timestamp.valueOf(usuario.getFechaNacimiento().atStartOfDay()));
-	        ps.setString(6, usuario.getContrasenia());
-	        ps.setTimestamp(7, Timestamp.valueOf(usuario.getFechaRegistro()));
-	        ps.setInt(8, usuario.getIdEstado());
 
 
-	        int filasInsertadas = ps.executeUpdate();
+    public boolean crearUsuario(Usuario usuario) {
+        String sql = "INSERT INTO usuario (primer_nombre, primer_apellido, correo, telefono, fecha_nacimiento, contrasenia, fecha_registro, id_estado, primera_vez)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = conexionDB.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-	        if (filasInsertadas > 0) {
-	            return true;
-	        }
+            ps.setString(1, usuario.getPrimerNombre());
+            ps.setString(2, usuario.getPrimerApellido());
+            ps.setString(3, usuario.getCorreo());
+            ps.setString(4, usuario.getTelefono());
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+            if (usuario.getFechaNacimiento() != null) {
+                ps.setDate(5, java.sql.Date.valueOf(usuario.getFechaNacimiento()));
+            } else {
+                ps.setNull(5, Types.DATE);
+            }
 
-	    return false;
-	}
+            ps.setString(6, usuario.getContrasenia());
+
+            if (usuario.getFechaRegistro() != null) {
+                ps.setTimestamp(7, Timestamp.valueOf(usuario.getFechaRegistro()));
+            } else {
+                ps.setTimestamp(7, Timestamp.valueOf(java.time.LocalDateTime.now()));
+            }
+
+            ps.setInt(8, usuario.getIdEstado());
+
+            ps.setInt(9, usuario.isPrimeraVez() ? 1 : 0);
+
+            int filasInsertadas = ps.executeUpdate();
+            return filasInsertadas > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
-	
-	public boolean eliminarUsuario(int idUsuario) {
+
+
+    public boolean eliminarUsuario(int idUsuario) {
 		String sql = "DELETE FROM usuario WHERE idUsuario = ?";
 		try (Connection conn = conexionDB.obtenerConexion();
 		PreparedStatement ps = conn.prepareStatement(sql)){
@@ -152,39 +161,58 @@ public class UsuarioRepository {
 
 	    return usuario; 
 	}
-	
-	public Usuario login(String correo, String contrasenia) {
-		Usuario usuario = new Usuario();
+
+    public boolean actualizarPrimeraVez(int idUsuario, boolean primeraVez) {
+        String sql = "UPDATE usuario SET primera_vez = ? WHERE id_usuario = ?";
+        try (Connection conn = conexionDB.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, primeraVez ? 1 : 0);
+            ps.setInt(2, idUsuario);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public Usuario login(String correo, String contrasenia) {
         String sql = "SELECT * FROM usuario WHERE correo = ? AND contrasenia = ?";
         try (Connection conn = conexionDB.obtenerConexion();
-        		PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, correo);
-            ps.setString(2, contrasenia); 
+            ps.setString(2, contrasenia);
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-            	usuario = new Usuario();
-                usuario.setIdUsuario(rs.getInt("id_usuario"));
-                usuario.setPrimerNombre(rs.getString("primer_nombre"));
-                usuario.setPrimerApellido(rs.getString("primer_apellido"));
-                usuario.setCorreo(rs.getString("correo"));
-                usuario.setTelefono(rs.getString("telefono"));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Usuario usuario = new Usuario();
+                    usuario.setIdUsuario(rs.getInt("id_usuario"));
+                    usuario.setPrimerNombre(rs.getString("primer_nombre"));
+                    usuario.setPrimerApellido(rs.getString("primer_apellido"));
+                    usuario.setCorreo(rs.getString("correo"));
+                    usuario.setTelefono(rs.getString("telefono"));
 
-                Timestamp fecha = rs.getTimestamp("fecha_nacimiento");
-                if (fecha != null) {
-                    usuario.setFechaNacimiento(fecha.toLocalDateTime().toLocalDate());
+                    Timestamp fecha = rs.getTimestamp("fecha_nacimiento");
+                    if (fecha != null) {
+                        usuario.setFechaNacimiento(fecha.toLocalDateTime().toLocalDate());
+                    }
+
+                    usuario.setContrasenia(rs.getString("contrasenia"));
+
+                    boolean primera = rs.getInt("primera_vez") == 1;
+                    usuario.setPrimeraVez(primera);
+
+                    return usuario;
+                } else {
+                    return null;
                 }
-
-                usuario.setContrasenia(rs.getString("contrasenia"));
-                return usuario;
-            } else {
-                return null; 
             }
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
-	
+
+
 
 }

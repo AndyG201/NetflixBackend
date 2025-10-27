@@ -14,7 +14,8 @@ public class UsuarioDTO {
 	private String contrasenia;
 	private LocalDateTime fechaRegistro;
 	private int idEstado;
-	
+    private boolean primeraVez;
+
 	public UsuarioDTO(int idUsuario, String primerNombre, String primerApellido, String correo, String telefono,
 			LocalDate fechaNacimiento, String contrasenia, LocalDateTime fechaRegistro, int idEstado) {
 		this.idUsuario = idUsuario;
@@ -120,8 +121,14 @@ public class UsuarioDTO {
 	public void setIdEstado(int idEstado) {
 		this.idEstado = idEstado;
 	}
-	
-	
+
+    public boolean isPrimeraVez() {
+        return primeraVez;
+    }
+
+    public void setPrimeraVez(boolean primeraVez) {
+        this.primeraVez = primeraVez;
+    }
 
 	
 }

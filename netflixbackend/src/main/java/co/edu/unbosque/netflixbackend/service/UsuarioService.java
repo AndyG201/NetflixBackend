@@ -42,24 +42,70 @@ public class UsuarioService {
        }
        return 0;
     }
-    
+
     public int crearUsuario(String codigo) {
         codigo = codigo.replace("\"", "").trim();
+
         UsuarioDTO usuarioDTO = usuariosPendientes.get(codigo);
+
         if (usuarioDTO != null) {
-            usuarioRepository.crearUsuario(modelMapper.map(usuarioDTO, Usuario.class));
-            usuariosPendientes.remove(codigo);
-            return 1;
+            // ✅ Agregar datos faltantes antes de guardar
+            usuarioDTO.setFechaRegistro(java.time.LocalDateTime.now());
+            usuarioDTO.setIdEstado(1); // Por ejemplo, 1 = activo o verificado
+
+            Usuario usuario = modelMapper.map(usuarioDTO, Usuario.class);
+
+            boolean creado = usuarioRepository.crearUsuario(usuario);
+
+            if (creado) {
+                usuariosPendientes.remove(codigo);
+                return 1;
+            }
         }
+
         return 0;
     }
 
-    public UsuarioDTO login (String correo, String contrasenia) {
-    	Usuario found = usuarioRepository.login(correo, contrasenia);
-    	return modelMapper.map(found, UsuarioDTO.class);
+
+    public UsuarioDTO login(String correo, String contrasenia) {
+        try {
+            Usuario usuario = usuarioRepository.login(correo, contrasenia);
+
+            if (usuario == null) {
+                System.out.println("⚠️ Usuario no encontrado con el correo: " + correo);
+                return null;
+            }
+
+            UsuarioDTO usuarioDTO = modelMapper.map(usuario, UsuarioDTO.class);
+
+            // Si es la primera vez, actualizamos la DB para marcar que ya no es primera vez
+            if (usuario.isPrimeraVez()) {
+                boolean actualizado = usuarioRepository.actualizarPrimeraVez(usuario.getIdUsuario(), false);
+                if (actualizado) {
+                    usuarioDTO.setPrimeraVez(true); // indicar al frontend que SI era primera vez
+                } else {
+                    // Si falla la actualización, aún podemos devolver true para que vaya a suscripciones,
+                    // pero idealmente loggear el error.
+                    usuarioDTO.setPrimeraVez(true);
+                    System.err.println("No se pudo actualizar primera_vez para id " + usuario.getIdUsuario());
+                }
+            } else {
+                usuarioDTO.setPrimeraVez(false);
+            }
+
+            System.out.println("✅ Usuario autenticado correctamente: " + usuario.getCorreo());
+            return usuarioDTO;
+
+        } catch (Exception e) {
+            System.err.println("❌ Error durante el inicio de sesión: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
-	public boolean buscarPorCorreo (String correo) {
+
+
+    public boolean buscarPorCorreo (String correo) {
 		Usuario usuario = usuarioRepository.findByEmail(correo);
 		if(usuario == null) {
 			return false;
@@ -67,8 +113,15 @@ public class UsuarioService {
 			return true;
 		}
 	}
-	
-	
 
-	
+    public UsuarioDTO obtenerUsuarioPorCorreo(String correo) {
+        Usuario usuario = usuarioRepository.findByEmail(correo);
+        if (usuario == null) {
+            return null;
+        }
+        return modelMapper.map(usuario, UsuarioDTO.class);
+    }
+
+
+
 }
