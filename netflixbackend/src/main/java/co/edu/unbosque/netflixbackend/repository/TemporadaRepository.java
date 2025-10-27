@@ -39,8 +39,6 @@ public class TemporadaRepository {
     }
 
 
-
-
     public List<Temporada> obtenerTodasLasTemporadas() {
         List<Temporada> temporadas = new ArrayList<>();
         String sql = "SELECT * FROM temporada";
@@ -130,7 +128,6 @@ public class TemporadaRepository {
         }
     }
 
-    // OBTENER una temporada por ID
     public Temporada obtenerTemporadaPorId(int idTemporada) {
         Temporada temporada = null;
         String sql = "SELECT * FROM temporada WHERE id_temporada = ?";
