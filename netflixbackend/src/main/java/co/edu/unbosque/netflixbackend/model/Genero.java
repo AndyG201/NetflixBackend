@@ -10,7 +10,6 @@ public class Genero {
 	}
 
 	public Genero( String nombre) {
-		super();
 		this.nombre = nombre;
 	}
 

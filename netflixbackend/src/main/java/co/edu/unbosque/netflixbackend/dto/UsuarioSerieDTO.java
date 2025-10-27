@@ -8,6 +8,13 @@ public class UsuarioSerieDTO {
 	private int idSerie;
 	private int idUsuario;
 	
+	public UsuarioSerieDTO(int idUsuarioPelicula, LocalDateTime fechaVisualizacion, int idSerie, int idUsuario) {
+		this.idUsuarioPelicula = idUsuarioPelicula;
+		this.fechaVisualizacion = fechaVisualizacion;
+		this.idSerie = idSerie;
+		this.idUsuario = idUsuario;
+	}
+
 	public UsuarioSerieDTO() {
 		// TODO Auto-generated constructor stub
 	}

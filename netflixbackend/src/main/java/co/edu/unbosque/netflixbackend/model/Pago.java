@@ -14,6 +14,18 @@ public class Pago {
 	private int idEstadoPago;
 	private int idMetodoPago;
 	
+	public Pago(int idPago, LocalDate fecha, String referencia, int monto, int idUsuario, int idSuscripcion,
+			int idEstadoPago, int idMetodoPago) {
+		this.idPago = idPago;
+		this.fecha = fecha;
+		this.referencia = referencia;
+		this.monto = monto;
+		this.idUsuario = idUsuario;
+		this.idSuscripcion = idSuscripcion;
+		this.idEstadoPago = idEstadoPago;
+		this.idMetodoPago = idMetodoPago;
+	}
+
 	public Pago() {
 		// TODO Auto-generated constructor stub
 	}

@@ -7,6 +7,14 @@ public class SuscripcionDTO {
 	private int precio;
 	private String descripcion;
 	
+	public SuscripcionDTO(int idSuscripcion, String tipoSuscripcion, int duracion, int precio, String descripcion) {
+		this.idSuscripcion = idSuscripcion;
+		this.tipoSuscripcion = tipoSuscripcion;
+		this.duracion = duracion;
+		this.precio = precio;
+		this.descripcion = descripcion;
+	}
+
 	public SuscripcionDTO() {
 		
 	}

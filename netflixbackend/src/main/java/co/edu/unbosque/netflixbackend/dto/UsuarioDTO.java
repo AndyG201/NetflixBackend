@@ -15,6 +15,20 @@ public class UsuarioDTO {
 	private LocalDateTime fechaRegistro;
 	private int idEstado;
 	
+	public UsuarioDTO(int idUsuario, String primerNombre, String primerApellido, String correo, String telefono,
+			LocalDate fechaNacimiento, String contrasenia, LocalDateTime fechaRegistro, int idEstado) {
+		this.idUsuario = idUsuario;
+		this.primerNombre = primerNombre;
+		this.primerApellido = primerApellido;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.fechaNacimiento = fechaNacimiento;
+		this.contrasenia = contrasenia;
+		this.fechaRegistro = fechaRegistro;
+		this.idEstado = idEstado;
+	}
+
+
 	public UsuarioDTO() {
 		// TODO Auto-generated constructor stub
 	}

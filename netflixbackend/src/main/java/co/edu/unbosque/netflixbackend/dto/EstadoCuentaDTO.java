@@ -2,6 +2,11 @@ package co.edu.unbosque.netflixbackend.dto;
 
 public class EstadoCuentaDTO {
 
+	public EstadoCuentaDTO(int idPago, String nombreEstado) {
+		this.idPago = idPago;
+		this.nombreEstado = nombreEstado;
+	}
+
 	private int idPago;
 	private String nombreEstado;
 

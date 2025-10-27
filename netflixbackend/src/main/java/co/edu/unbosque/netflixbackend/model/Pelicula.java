@@ -12,7 +12,19 @@ public class Pelicula {
     private double popularidad;
     private String urlPelicula;
 
-    public Pelicula() {
+    public Pelicula(int idPelicula, String nombre, String descripcion, String poster, String fechaEstreno,
+			double calificacion, double popularidad, String urlPelicula) {
+		this.idPelicula = idPelicula;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.poster = poster;
+		this.fechaEstreno = fechaEstreno;
+		this.calificacion = calificacion;
+		this.popularidad = popularidad;
+		this.urlPelicula = urlPelicula;
+	}
+
+	public Pelicula() {
     }
 
 	public Pelicula(String nombre, String descripcion, String poster, String fechaEstreno, double calificacion,

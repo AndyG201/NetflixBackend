@@ -5,6 +5,11 @@ public class GeneroDTO {
 	private int idGenero;
 	private String nombre;
 	
+	public GeneroDTO(int idGenero, String nombre) {
+		this.idGenero = idGenero;
+		this.nombre = nombre;
+	}
+
 	public GeneroDTO() {
 		// TODO Auto-generated constructor stub
 	}

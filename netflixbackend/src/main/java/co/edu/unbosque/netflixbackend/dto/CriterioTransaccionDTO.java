@@ -2,8 +2,15 @@ package co.edu.unbosque.netflixbackend.dto;
 
 public class CriterioTransaccionDTO {
 
+
 	public int idCriterioTransaccion;
 	public String criterio;
+	
+	
+	public CriterioTransaccionDTO(int idCriterioTransaccion, String criterio) {
+		this.idCriterioTransaccion = idCriterioTransaccion;
+		this.criterio = criterio;
+	}
 	
 	public CriterioTransaccionDTO() {
 		// TODO Auto-generated constructor stub

@@ -7,7 +7,14 @@ public class TemporadaDTO {
     private int anioEstreno;
     private int idSerie;
 
-    public TemporadaDTO() {
+    public TemporadaDTO(int idTemporada, int numeroTemporada, int anioEstreno, int idSerie) {
+		this.idTemporada = idTemporada;
+		this.numeroTemporada = numeroTemporada;
+		this.anioEstreno = anioEstreno;
+		this.idSerie = idSerie;
+	}
+
+	public TemporadaDTO() {
     	
     }
 
