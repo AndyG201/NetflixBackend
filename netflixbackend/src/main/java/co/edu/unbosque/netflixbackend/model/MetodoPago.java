@@ -8,6 +8,14 @@ public class MetodoPago {
 	public MetodoPago() {
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public MetodoPago(int idMetodoPago, String metodo) {
+		super();
+		this.idMetodoPago = idMetodoPago;
+		this.metodo = metodo;
+	}
+
 
 	public MetodoPago(String metodo) {
 		this.metodo = metodo;

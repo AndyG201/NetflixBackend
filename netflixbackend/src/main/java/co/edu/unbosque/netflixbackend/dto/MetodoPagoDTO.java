@@ -9,6 +9,12 @@ public class MetodoPagoDTO {
 		// TODO Auto-generated constructor stub
 	}
 
+	public MetodoPagoDTO(int idMetodoPago, String metodo) {
+		super();
+		this.idMetodoPago = idMetodoPago;
+		this.metodo = metodo;
+	}
+
 	public MetodoPagoDTO(String metodo) {
 		this.metodo = metodo;
 	}
