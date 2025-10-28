@@ -1,73 +1,104 @@
 package co.edu.unbosque.netflixbackend.service;
+
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import co.edu.unbosque.netflixbackend.model.Usuario;
 import co.edu.unbosque.netflixbackend.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
 
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-	
-	@Autowired
-	private ModelMapper modelMapper;
-	
-	@Autowired
-	private MailService mailService;
-	
-	private static final SecureRandom RANDOM = new SecureRandom();
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private MailService mailService;
+
+    private static final SecureRandom RANDOM = new SecureRandom();
     private Map<String, Usuario> usuariosPendientes = new HashMap<>();
-    
+
     public String generarCodigoConfirmacion() {
         int codigo = RANDOM.nextInt(100000) + 900000;
         return String.valueOf(codigo);
     }
-    
+
     public int enviarCodigo(Usuario usuario) {
-       boolean encontrado = buscarPorCorreo(usuario.getCorreo());
-       if(!encontrado) {
-    	   String codigo = generarCodigoConfirmacion();
-    	   usuariosPendientes.put(codigo, usuario);
-    	   boolean enviado = mailService.enviarCodigoConfirmacion(usuario.getCorreo(), codigo);
-    	   if(!enviado) {
-    		   return 0;
-    	   }
-    	   return 1;
-       }
-       return 0;
-    }
-    
-    public int crearUsuario(String codigo) {
-        codigo = codigo.replace("\"", "").trim();
-        Usuario usuarioDTO = usuariosPendientes.get(codigo);
-        if (usuarioDTO != null) {
-            usuarioRepository.crearUsuario(modelMapper.map(usuarioDTO, Usuario.class));
-            usuariosPendientes.remove(codigo);
+        boolean encontrado = buscarPorCorreo(usuario.getCorreo());
+        if (!encontrado) {
+            String codigo = generarCodigoConfirmacion();
+            usuariosPendientes.put(codigo, usuario);
+            boolean enviado = mailService.enviarCodigoConfirmacion(usuario.getCorreo(), codigo);
+            if (!enviado) {
+                return 0;
+            }
             return 1;
         }
         return 0;
     }
 
-    public Usuario login (String correo, String contrasenia) {
-    	Usuario found = usuarioRepository.login(correo, contrasenia);
-    	return found;
+    public int crearUsuario(String codigo) {
+        codigo = codigo.replace("\"", "").trim();
+
+        Usuario usuario = usuariosPendientes.get(codigo);
+
+        if (usuario != null) {
+            usuario.setFechaRegistro(LocalDateTime.now());
+            usuario.setIdEstado(1); // Por ejemplo, 1 = activo o verificado
+
+            boolean creado = usuarioRepository.crearUsuario(usuario);
+
+            if (creado) {
+                usuariosPendientes.remove(codigo);
+                return 1;
+            }
+        }
+
+        return 0;
     }
 
-	public boolean buscarPorCorreo (String correo) {
-		Usuario usuario = usuarioRepository.findByEmail(correo);
-		if(usuario == null) {
-			return false;
-		}else {
-			return true;
-		}
-	}
-	
-	
+    public Usuario login(String correo, String contrasenia) {
+        try {
+            Usuario usuario = usuarioRepository.login(correo, contrasenia);
 
-	
+            if (usuario == null) {
+                System.out.println("⚠️ Usuario no encontrado con el correo: " + correo);
+                return null;
+            }
+
+            if (usuario.isPrimeraVez()) {
+                boolean actualizado = usuarioRepository.actualizarPrimeraVez(usuario.getIdUsuario(), false);
+                if (actualizado) {
+                    usuario.setPrimeraVez(true);
+                } else {
+                    usuario.setPrimeraVez(true);
+                    System.err.println("No se pudo actualizar primera_vez para id " + usuario.getIdUsuario());
+                }
+            } else {
+                usuario.setPrimeraVez(false);
+            }
+
+            System.out.println("✅ Usuario autenticado correctamente: " + usuario.getCorreo());
+            return usuario;
+
+        } catch (Exception e) {
+            System.err.println("❌ Error durante el inicio de sesión: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean buscarPorCorreo(String correo) {
+        Usuario usuario = usuarioRepository.findByEmail(correo);
+        return usuario != null;
+    }
+
+    public Usuario obtenerUsuarioPorCorreo(String correo) {
+        return usuarioRepository.findByEmail(correo);
+    }
 }

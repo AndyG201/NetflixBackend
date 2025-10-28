@@ -5,19 +5,15 @@ public class MetodoPago {
 	private int idMetodoPago;
 	private String metodo;
 	
+	public MetodoPago(int idMetodoPago, String metodo) {
+		this.idMetodoPago = idMetodoPago;
+		this.metodo = metodo;
+	}
 
 	public MetodoPago() {
 		// TODO Auto-generated constructor stub
 	}
 	
-
-	public MetodoPago(int idMetodoPago, String metodo) {
-		super();
-		this.idMetodoPago = idMetodoPago;
-		this.metodo = metodo;
-	}
-
-
 	public MetodoPago(String metodo) {
 		this.metodo = metodo;
 	}
