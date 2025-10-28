@@ -1,9 +1,9 @@
-package co.edu.unbosque.netflixbackend.model;
+package co.edu.unbosque.netflixbackend.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
-public class Usuario {
+public class UsuarioDTO {
 
 	private int idUsuario;
 	private String primerNombre;
@@ -16,12 +16,26 @@ public class Usuario {
 	private int idEstado;
     private boolean primeraVez;
 
-    public Usuario() {
+	public UsuarioDTO(int idUsuario, String primerNombre, String primerApellido, String correo, String telefono,
+			LocalDate fechaNacimiento, String contrasenia, LocalDateTime fechaRegistro, int idEstado) {
+		this.idUsuario = idUsuario;
+		this.primerNombre = primerNombre;
+		this.primerApellido = primerApellido;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.fechaNacimiento = fechaNacimiento;
+		this.contrasenia = contrasenia;
+		this.fechaRegistro = fechaRegistro;
+		this.idEstado = idEstado;
+	}
+
+
+	public UsuarioDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public Usuario(String primerNombre, String primerApellido, String correo, String telefono,
+	public UsuarioDTO(String primerNombre, String primerApellido, String correo, String telefono,
 			LocalDate fechaNacimiento, String contrasenia, LocalDateTime fechaRegistro, int idEstado) {
 		super();
 		this.primerNombre = primerNombre;
