@@ -1,6 +1,5 @@
 package co.edu.unbosque.netflixbackend.service;
 
-import java.awt.Color;
 import java.io.FileOutputStream;
 import java.time.format.DateTimeFormatter;
 

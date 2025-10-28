@@ -1,7 +1,6 @@
 package co.edu.unbosque.netflixbackend.repository;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -100,24 +99,6 @@ public class UsuarioRepository {
 	    return usuario; 
 	}
 
-	public List<Usuario> findAllUsers () throws SQLException{
-		List<Usuario> usuarios = new ArrayList<>();
-		String sql = "SELECT * FROM usuario";
-		
-		try(Connection conn = conexionDB.obtenerConexion();
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			){
-				while(rs.next()) {
-					
-					String nombre =rs.getString("primer_nombre");
-					String apellido = rs.getString("primer_apellido");
-					Usuario u = new Usuario();
-					usuarios.add(u);
-				}
-		}
-		return usuarios;
-	}
 	
 	public Usuario findById(int  id) {
 	    Usuario usuario = null;

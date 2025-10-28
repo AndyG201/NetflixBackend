@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import co.edu.unbosque.netflixbackend.dto.MetodoPagoDTO;
+import co.edu.unbosque.netflixbackend.model.MetodoPago;
 import co.edu.unbosque.netflixbackend.service.MetodoPagoService;
 
 @RestController
@@ -22,12 +21,12 @@ public class MetodoPagoController {
 	private MetodoPagoService metodoPagoService;
 	
 	@GetMapping("/obtenermetodosdepago")
-	public ResponseEntity<List<MetodoPagoDTO>> obtenerMetodosPago (){
-		List<MetodoPagoDTO> found = metodoPagoService.obtenerMetodosDePago();
+	public ResponseEntity<List<MetodoPago>> obtenerMetodosPago (){
+		List<MetodoPago> found = metodoPagoService.obtenerMetodosDePago();
 		if(found != null) {
-			return new ResponseEntity<List<MetodoPagoDTO>>(found, HttpStatus.FOUND);
+			return new ResponseEntity<List<MetodoPago>>(found, HttpStatus.FOUND);
 		}else {
-			return new ResponseEntity<List<MetodoPagoDTO>>(found, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<MetodoPago>>(found, HttpStatus.NOT_FOUND);
 		}
 	}
 }

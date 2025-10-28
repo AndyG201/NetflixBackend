@@ -5,23 +5,19 @@ public class Premio {
     private int idPremio;
     private String nombre;
     private String descripcion;
-    private String tipoPremio;
-    private String criterio;
-    private String recompensa;
     private String fechaInicio;
     private String fechaFin;
+    private int tipoPremio;
 
     public Premio() {
     }
 
-    public Premio(String nombre, String descripcion, String tipoPremio, String criterio, String recompensa, String fechaInicio, String fechaFin) {
+    public Premio(String nombre, String descripcion, String fechaInicio, String fechaFin, int tipoPremio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.tipoPremio = tipoPremio;
-        this.criterio = criterio;
-        this.recompensa = recompensa;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.tipoPremio = tipoPremio;
     }
 
     public int getIdPremio() {
@@ -48,30 +44,6 @@ public class Premio {
         this.descripcion = descripcion;
     }
 
-    public String getTipoPremio() {
-        return tipoPremio;
-    }
-
-    public void setTipoPremio(String tipoPremio) {
-        this.tipoPremio = tipoPremio;
-    }
-
-    public String getCriterio() {
-        return criterio;
-    }
-
-    public void setCriterio(String criterio) {
-        this.criterio = criterio;
-    }
-
-    public String getRecompensa() {
-        return recompensa;
-    }
-
-    public void setRecompensa(String recompensa) {
-        this.recompensa = recompensa;
-    }
-
     public String getFechaInicio() {
         return fechaInicio;
     }
@@ -86,5 +58,13 @@ public class Premio {
 
     public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public int getTipoPremio() {
+        return tipoPremio;
+    }
+
+    public void setTipoPremio(int tipoPremio) {
+        this.tipoPremio = tipoPremio;
     }
 }

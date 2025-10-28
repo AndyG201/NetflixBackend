@@ -1,12 +1,8 @@
 package co.edu.unbosque.netflixbackend.service;
 
 import java.util.List;
-
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import co.edu.unbosque.netflixbackend.dto.DocumentalDTO;
 import co.edu.unbosque.netflixbackend.model.Documental;
 import co.edu.unbosque.netflixbackend.repository.DocumentalRepository;
 
@@ -16,13 +12,11 @@ public class DocumentalService {
     @Autowired
     private DocumentalRepository documentalRepository;
     
-    @Autowired
-    private ModelMapper modelMapper;
 
-    public DocumentalDTO buscarPorNombre(String nombre) {
+    public Documental buscarPorNombre(String nombre) {
         Documental encontrado = documentalRepository.findByNombre(nombre);
         if (encontrado != null) {
-            return modelMapper.map(encontrado, DocumentalDTO.class);
+            return encontrado;
         } else {
             return null;
         }

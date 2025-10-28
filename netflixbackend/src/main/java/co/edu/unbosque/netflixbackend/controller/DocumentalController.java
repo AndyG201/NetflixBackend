@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import co.edu.unbosque.netflixbackend.dto.DocumentalDTO;
 import co.edu.unbosque.netflixbackend.model.Documental;
 import co.edu.unbosque.netflixbackend.service.DocumentalService;
 
@@ -24,8 +22,8 @@ public class DocumentalController {
     private DocumentalService documentalService;
 
     @GetMapping("/obtenerdocumentalpornombre")
-    public ResponseEntity<DocumentalDTO> obtenerDocumentalPorNombre(@RequestParam String nombre) {
-        DocumentalDTO encontrado = documentalService.buscarPorNombre(nombre.toLowerCase());
+    public ResponseEntity<Documental> obtenerDocumentalPorNombre(@RequestParam String nombre) {
+        Documental encontrado = documentalService.buscarPorNombre(nombre.toLowerCase());
         if (encontrado != null) {
             return new ResponseEntity<>(encontrado, HttpStatus.ACCEPTED);
         } else {

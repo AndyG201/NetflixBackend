@@ -3,8 +3,6 @@ package co.edu.unbosque.netflixbackend.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import co.edu.unbosque.netflixbackend.dto.PagoDTO;
 import co.edu.unbosque.netflixbackend.model.Pago;
 import co.edu.unbosque.netflixbackend.model.Suscripcion;
 import co.edu.unbosque.netflixbackend.model.Usuario;
@@ -31,14 +29,14 @@ public class PagoService {
 	private UsuarioRepository usuarioRepository;
 	
 	
-	public boolean crearPago (PagoDTO pagoDTO) {
+	public boolean crearPago (Pago pago) {
 		String referencia =  generarReferencia();
-		pagoDTO.setReferencia(referencia);
-		pagoDTO.setIdEstadoPago(1);
-		pagoDTO.setIdMetodoPago(1);
-		pagoDTO.setMonto(buscarMontoPago(pagoDTO.getIdSuscripcion()));
-		boolean rta = pagoRepository.crearPago(modelMapper.map(pagoDTO, Pago.class));
-		mailService.enviarCodigoReferencia(buscarCorreoUsuario(pagoDTO.getIdUsuario()), referencia);
+		pago.setReferencia(referencia);
+		pago.setIdEstadoPago(1);
+		pago.setIdMetodoPago(1);
+		pago.setMonto(buscarMontoPago(pago.getIdSuscripcion()));
+		boolean rta = pagoRepository.crearPago(modelMapper.map(pago, Pago.class));
+		mailService.enviarCodigoReferencia(buscarCorreoUsuario(pago.getIdUsuario()), referencia);
 		return rta;
 	}
 	

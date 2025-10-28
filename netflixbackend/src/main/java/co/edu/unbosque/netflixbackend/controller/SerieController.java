@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.unbosque.netflixbackend.dto.SerieDTO;
+import co.edu.unbosque.netflixbackend.model.Serie;
 import co.edu.unbosque.netflixbackend.service.SerieService;
 
 @RestController
@@ -23,21 +23,22 @@ public class SerieController {
 	@Autowired
 	private SerieService serieService;
 	
-	@GetMapping("obtenertodaslasseries")
-	public ResponseEntity<List<SerieDTO>> buscarTodasLasSeries (){
-		List<SerieDTO> found = serieService.obtenerSeries();
-		if(found != null) {
-			return new ResponseEntity<List<SerieDTO>>(found, HttpStatus.FOUND);
-		}else {
-			return new ResponseEntity<List<SerieDTO>>(found, HttpStatus.NOT_FOUND);
-		}
+	@GetMapping("/obtenertodaslasseries")
+	public ResponseEntity<List<Serie>> buscarTodasLasSeries() {
+	    List<Serie> found = serieService.obtenerSeries();
+
+	    if (found == null || found.isEmpty()) {
+	        return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
+	    } else {
+	        return new ResponseEntity<>(found, HttpStatus.OK); 
+	    }
 	}
-	
+
 	@GetMapping("obtenerserieporid")
-	public ResponseEntity<SerieDTO> buscarSeriePorId (@RequestParam int idSerie ){
-		SerieDTO found = serieService.buscarSeriePorId(idSerie);
+	public ResponseEntity<Serie> buscarSeriePorId (@RequestParam int idSerie ){
+		Serie found = serieService.buscarSeriePorId(idSerie);
 		if(found != null) {
-			return new ResponseEntity<SerieDTO>(found , HttpStatus.FOUND);
+			return new ResponseEntity<Serie>(found , HttpStatus.FOUND);
 		}else {
 			return new ResponseEntity<>(found, HttpStatus.NOT_FOUND);
 		}

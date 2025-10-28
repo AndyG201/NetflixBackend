@@ -82,7 +82,7 @@ public class DocumentalRepository {
 
             while (rs.next()) {
                 Documental documental = new Documental();
-                documental.setIdDocumental(rs.getInt("idDocumental"));
+                documental.setIdDocumental(rs.getInt("id_documental"));
                 documental.setNombre(rs.getString("nombre"));
                 documental.setDescripcion(rs.getString("descripcion"));
                 documental.setPoster(rs.getString("poster"));

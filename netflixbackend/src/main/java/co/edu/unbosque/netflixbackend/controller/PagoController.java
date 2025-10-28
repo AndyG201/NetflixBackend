@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.unbosque.netflixbackend.dto.PagoDTO;
+import co.edu.unbosque.netflixbackend.model.Pago;
 import co.edu.unbosque.netflixbackend.service.GeneradorPdfService;
 import co.edu.unbosque.netflixbackend.service.PagoService;
 import co.edu.unbosque.netflixbackend.service.UsuarioSuscripcionService;
@@ -31,8 +31,8 @@ public class PagoController {
 	private GeneradorPdfService generadorPdfService;
 	
 	@PostMapping
-	public ResponseEntity<String> crearPago (@RequestBody PagoDTO pagoDTO){
-		boolean rta = pagoService.crearPago(pagoDTO);
+	public ResponseEntity<String> crearPago (@RequestBody Pago pago){
+		boolean rta = pagoService.crearPago(pago);
 		if(rta) {
 			return new ResponseEntity<String>("Pago creado", HttpStatus.CREATED);
 		}else {

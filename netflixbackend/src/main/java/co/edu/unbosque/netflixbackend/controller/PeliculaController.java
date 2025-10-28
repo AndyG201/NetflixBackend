@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import co.edu.unbosque.netflixbackend.dto.PeliculaDTO;
 import co.edu.unbosque.netflixbackend.model.Pelicula;
 import co.edu.unbosque.netflixbackend.service.PeliculaService;
 
@@ -24,12 +22,12 @@ public class PeliculaController {
 	private PeliculaService peliculaService;
 	
 	@GetMapping("obtenerpeliculapornombre")
-	public ResponseEntity<PeliculaDTO> obtenerPeliculaPorNombre (@RequestParam String nombre){
-		PeliculaDTO encontrada = peliculaService.buscarPorNombre(nombre.toLowerCase());
+	public ResponseEntity<Pelicula> obtenerPeliculaPorNombre (@RequestParam String nombre){
+		Pelicula encontrada = peliculaService.buscarPorNombre(nombre.toLowerCase());
 		if(encontrada != null) {
-			return new ResponseEntity<PeliculaDTO>(encontrada, HttpStatus.ACCEPTED);
+			return new ResponseEntity<Pelicula>(encontrada, HttpStatus.ACCEPTED);
 		}else {
-			return new ResponseEntity<PeliculaDTO>(encontrada, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Pelicula>(encontrada, HttpStatus.NO_CONTENT);
 		}
 	}
 	

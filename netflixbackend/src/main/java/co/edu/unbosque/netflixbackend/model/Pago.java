@@ -2,9 +2,7 @@ package co.edu.unbosque.netflixbackend.model;
 
 import java.time.LocalDate;
 
-
 public class Pago {
-
 	private int idPago;
 	private LocalDate fecha;
 	private String referencia;

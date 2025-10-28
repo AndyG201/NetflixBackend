@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import co.edu.unbosque.netflixbackend.dto.SuscripcionDTO;
+import co.edu.unbosque.netflixbackend.model.Suscripcion;
 import co.edu.unbosque.netflixbackend.service.SuscripcionService;
 
 @RestController
@@ -22,7 +21,14 @@ public class SuscripcionController {
 	private SuscripcionService suscripcionService;
 	
 	@GetMapping("/obtenersuscripciones")
-	public ResponseEntity<List<SuscripcionDTO>> obtenerSuscripciones(){
-		return new ResponseEntity<List<SuscripcionDTO>>(suscripcionService.obtenerSuscripciones(),HttpStatus.ACCEPTED);
+	public ResponseEntity<List<Suscripcion>> obtenerSuscripciones() {
+	    List<Suscripcion> suscripciones = suscripcionService.obtenerSuscripciones();
+
+	    if (suscripciones == null || suscripciones.isEmpty()) {
+	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	    } else {
+	        return new ResponseEntity<>(suscripciones, HttpStatus.OK);
+	    }
 	}
+
 }
