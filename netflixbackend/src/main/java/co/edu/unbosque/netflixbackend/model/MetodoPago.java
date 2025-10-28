@@ -14,6 +14,10 @@ public class MetodoPago {
 		// TODO Auto-generated constructor stub
 	}
 	
+
+
+
+
 	public MetodoPago(String metodo) {
 		this.metodo = metodo;
 	}

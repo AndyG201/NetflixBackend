@@ -1,11 +1,9 @@
 package co.edu.unbosque.netflixbackend.service;
 
 import java.time.LocalDate;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import co.edu.unbosque.netflixbackend.model.Pago;
 import co.edu.unbosque.netflixbackend.model.Suscripcion;
 import co.edu.unbosque.netflixbackend.model.Usuario;
@@ -20,9 +18,6 @@ public class PagoService {
     private PagoRepository pagoRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private SuscripcionRepository suscripcionRepository;
 
     @Autowired
@@ -32,17 +27,11 @@ public class PagoService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private GeneradorPdfService generadorPdfService; // <- inyectar el generador para crear+enviar pdf
+    private GeneradorPdfService generadorPdfService;
 
-    /**
-     * Crea el pago, genera la referencia, guarda en BD, envía la referencia por correo
-     * y genera + adjunta el PDF (llama a GeneradorPdfService).
-     *
-     * Devuelve la referencia si todo sale bien, o null si falla.
-     */
     public String crearPago(Pago pago) {
         if (pago == null) {
-            throw new IllegalArgumentException("PagoDTO es null");
+            throw new IllegalArgumentException("El objeto Pago no puede ser null");
         }
 
         int idSuscripcion = pago.getIdSuscripcion();
@@ -68,18 +57,13 @@ public class PagoService {
             pago.setFecha(LocalDate.now());
         }
 
-        boolean creado= pagoRepository.crearPago(pago);
-
+        boolean creado = pagoRepository.crearPago(pago);
         if (!creado) {
             throw new RuntimeException("No se pudo crear el pago en la base de datos");
         }
 
         mailService.enviarCodigoReferencia(user.getCorreo(), referencia);
-
-
-        String resultadoPdf = generadorPdfService.crearPdf(referencia);
-        System.out.println("Resultado generación PDF: " + resultadoPdf);
-
+        generadorPdfService.crearPdf(referencia);
         return referencia;
     }
 
@@ -92,6 +76,7 @@ public class PagoService {
         int numero = (int) (100_000_000 + Math.random() * 900_000_000);
         return "REF-" + numero;
     }
+
     public int buscarMontoPago(int idSuscripcion) {
         Suscripcion found = suscripcionRepository.findById(idSuscripcion);
         if (found == null) {
@@ -99,5 +84,4 @@ public class PagoService {
         }
         return found.getPrecio();
     }
-
 }

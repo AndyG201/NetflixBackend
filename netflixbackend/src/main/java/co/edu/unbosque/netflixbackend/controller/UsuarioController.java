@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import co.edu.unbosque.netflixbackend.model.Usuario;
 import co.edu.unbosque.netflixbackend.service.UsuarioService;
 
@@ -20,8 +21,8 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@PostMapping("/enviarcodigo")
-	public ResponseEntity<String> enviarCodigo (@RequestBody Usuario usuarioDTO){
-		int rta = usuarioService.enviarCodigo(usuarioDTO);
+	public ResponseEntity<String> enviarCodigo (@RequestBody Usuario usuario){
+		int rta = usuarioService.enviarCodigo(usuario);
 		if(rta==1) {
 			return new ResponseEntity<>("Codigo enviado", HttpStatus.ACCEPTED);
 		}else {
@@ -67,3 +68,4 @@ public class UsuarioController {
 
 
 }
+

@@ -16,11 +16,12 @@ public class PagoController {
     private PagoService pagoService;
 
     @PostMapping
-    public ResponseEntity<?> crearPago(@RequestBody Pago pagoDTO) {
+    public ResponseEntity<?> crearPago(@RequestBody Pago pago) {
         try {
-            String referencia = pagoService.crearPago(pagoDTO);
-            return new ResponseEntity<>(referencia, HttpStatus.CREATED); 
+            String referencia = pagoService.crearPago(pago);
+            return new ResponseEntity<>(referencia, HttpStatus.CREATED); // devuelve la referencia al frontend
         } catch (RuntimeException e) {
+            // error controlado (por ejemplo: suscripcion no encontrada)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
@@ -30,6 +31,7 @@ public class PagoController {
 
     @GetMapping
     public ResponseEntity<String> enviarPdf(@RequestParam String referencia) {
+        // Si quieres mantener GET separado, puedes
         return new ResponseEntity<String>("Use POST /pago to create and send pdf", HttpStatus.OK);
     }
 }
