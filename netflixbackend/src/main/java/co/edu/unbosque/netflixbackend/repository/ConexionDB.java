@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ConexionDB { 
 	
 	private static final String URL = "jdbc:mysql://100.94.64.29/databasesi";
-	private static final String USUARIO = "anderson";
+	private static final String USUARIO = "federico";
 	private static final String CONTRASENIA = "Bases123+";
 	
 	public Connection obtenerConexion ()throws SQLException{
