@@ -46,7 +46,7 @@ public class UsuarioService {
         if (usuario != null) {
             usuario.setFechaRegistro(LocalDateTime.now());
             usuario.setIdEstado(1);
-            usuario.setPrimeraVez(false);
+            usuario.setPrimeraVez(true);
             boolean creado = usuarioRepository.crearUsuario(usuario);
             if (creado) {
                 usuariosPendientes.remove(codigo);
