@@ -16,18 +16,12 @@ public class UsuarioSuscripcionService {
 	@Autowired
 	private PagoRepository pagoRepository;
 
-	public int adquirirSuscripcion(String referencia) {
-		Pago pago = buscarPago(referencia);
-		if (pago != null) {
-			usuarioSuscripcionRepository.adquirirSuscripcion(pago.getIdSuscripcion(), pago.getIdUsuario());
-			return 1;
-		} else {
-			return 0;
-		}
+    public int adquirirSuscripcion(int idSuscripcion, int idUsuario) {
+        return usuarioSuscripcionRepository.adquirirSuscripcion(idSuscripcion, idUsuario);
+    }
 
-	}
 
-	public Pago buscarPago(String referencia) {
+    public Pago buscarPago(String referencia) {
 		Pago pago = pagoRepository.buscarPorReferencia(referencia);
 		return pago;
 	}

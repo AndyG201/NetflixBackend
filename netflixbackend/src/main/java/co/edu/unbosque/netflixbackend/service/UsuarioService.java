@@ -60,17 +60,17 @@ public class UsuarioService {
         if (usuario == null) {
             return null;
         }
+
         if (usuario.isPrimeraVez()) {
-            boolean actualizado = usuarioRepository.actualizarPrimeraVez(usuario.getIdUsuario(), false);
+            usuarioRepository.actualizarPrimeraVez(usuario.getIdUsuario(), false);
             usuario.setPrimeraVez(true);
-            if (!actualizado) {
-                System.err.println("No se pudo actualizar primera_vez para id " + usuario.getIdUsuario());
-            }
         } else {
             usuario.setPrimeraVez(false);
         }
+
         return usuario;
     }
+
 
     public boolean buscarPorCorreo(String correo) {
         Usuario usuario = usuarioRepository.findByEmail(correo);

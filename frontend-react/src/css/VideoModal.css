@@ -1,0 +1,46 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(10, 10, 10, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(6px);
+}
+
+.modal-contenido {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border-radius: 15px;
+  padding: 10px;
+  max-width: 90vw;
+  max-height: 80vh;
+}
+
+.btn-cerrar {
+  position: absolute;
+  top: -40px;
+  right: -10px;
+  background: #e50914;
+  border: none;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  transition: 0.3s;
+}
+
+.btn-cerrar:hover {
+  background: #b00610;
+  transform: scale(1.05);
+}

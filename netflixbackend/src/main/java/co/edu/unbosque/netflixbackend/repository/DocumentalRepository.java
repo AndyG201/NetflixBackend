@@ -86,7 +86,7 @@ public class DocumentalRepository {
                 documental.setNombre(rs.getString("nombre"));
                 documental.setDescripcion(rs.getString("descripcion"));
                 documental.setPoster(rs.getString("poster"));
-                documental.setFechaEstreno(rs.getString("fechaEstreno"));
+                documental.setFechaEstreno(rs.getString("fecha_estreno"));
                 documental.setCalificacion(rs.getDouble("calificacion"));
                 documental.setPopularidad(rs.getDouble("popularidad"));
                 documental.setUrlDocumental(rs.getString("url_documental"));

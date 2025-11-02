@@ -1,0 +1,139 @@
+/* Fondo general estilo Netflix */
+.contenedor-peliculas {
+  background-color: #000;
+  min-height: 100vh;
+  color: white;
+  padding-bottom: 60px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Barra superior */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 30px;
+  background: rgba(0, 0, 0, 0.85);
+  border-bottom: 1px solid #111;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Logo */
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #e50914;
+  cursor: pointer;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 18px;
+}
+
+.tabs button {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tabs button:hover {
+  color: white;
+}
+
+.tab-activa {
+  color: white !important;
+  font-weight: bold;
+  border-bottom: 2px solid #e50914;
+  padding-bottom: 4px;
+}
+
+/* Botón cerrar sesión */
+.btn-cerrar-sesion {
+  background: #e50914;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-cerrar-sesion:hover {
+  background: #b00610;
+}
+
+/* Buscador */
+.buscador-contenedor {
+  margin: 25px 40px;
+}
+
+.buscador-contenedor input {
+  width: 320px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  background: #222;
+  color: white;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.buscador-contenedor input:focus {
+  background: #333;
+}
+
+/* Grid de tarjetas */
+.grid-peliculas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 22px;
+  padding: 20px 40px;
+}
+
+/* Tarjeta */
+.card-pelicula {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.card-pelicula img {
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+  height: 260px;
+}
+
+.card-pelicula:hover {
+  transform: scale(1.08);
+  z-index: 2;
+}
+
+/* Texto y botones dentro de tarjeta */
+.card-info {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.card-info h3 {
+  font-size: 15px;
+  margin: 0;
+  text-shadow: 0px 0px 5px black;
+}
+
+/* Mensaje vacío */
+.mensaje-vacio {
+  text-align: center;
+  color: #999;
+  font-size: 18px;
+  margin-top: 50px;
+}

@@ -1,74 +1,65 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import "../css/Suscripciones.css";
+import { useNavigate } from "react-router-dom";
 
 const Suscripciones = () => {
   const [suscripciones, setSuscripciones] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  // ✅ Obtener usuario del localStorage
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   useEffect(() => {
     const fetchSuscripciones = async () => {
       try {
         const response = await axios.get("http://localhost:8080/suscripciones");
         setSuscripciones(response.data);
-      } catch (err) {
-        console.error("Error al obtener las suscripciones:", err);
-        setError("Error al cargar las suscripciones");
-      } finally {
-        setLoading(false);
+      } catch (error) {
+        console.error("❌ Error al cargar suscripciones:", error);
       }
     };
 
     fetchSuscripciones();
   }, []);
 
-  const handleSeleccionar = async (idSuscripcion) => {
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+  // ✅ Manejar selección de suscripción
+  const handleSeleccionar = (suscripcion) => {
     if (!usuario) {
-      alert("Debes iniciar sesión antes de seleccionar una suscripción");
+      alert("Debes iniciar sesión primero.");
       navigate("/login");
       return;
     }
 
-    try {
-      await axios.post("http://localhost:8080/usuario/suscribirse", null, {
-        params: {
-          idUsuario: usuario.id,
-          idSuscripcion: idSuscripcion,
-        },
-      });
+    // Guardar suscripción seleccionada en localStorage
+    localStorage.setItem("suscripcion", JSON.stringify(suscripcion));
 
-      alert("✅ Suscripción realizada con éxito");
-      navigate("/peliculas");
-    } catch (error) {
-      console.error("Error al suscribirse:", error);
-      alert("❌ Error al realizar la suscripción");
-    }
+    // Navegar a la página de pago con los datos
+    navigate("/pago", { state: { usuario, suscripcion } });
   };
-
-  if (loading) return <p className="loading">Cargando suscripciones...</p>;
-  if (error) return <p className="error">{error}</p>;
 
   return (
     <div className="suscripciones-container">
-      <h1 className="suscripciones-title">Elige tu plan</h1>
+      <h1 className="titulo">Elige tu plan de suscripción</h1>
+
       <div className="suscripciones-grid">
-        {suscripciones.map((sus) => (
-          <div key={sus.id} className="suscripcion-card">
-            <h2>{sus.nombre}</h2>
-            <p>{sus.descripcion}</p>
-            <p className="precio">${sus.precio}/mes</p>
-            <button
-              className="btn-seleccionar"
-              onClick={() => handleSeleccionar(sus.id)}
-            >
-              Seleccionar
-            </button>
-          </div>
-        ))}
+        {suscripciones.length > 0 ? (
+          suscripciones.map((s) => (
+            <div key={s.idSuscripcion} className="suscripcion-card">
+              <h2>{s.tipoSuscripcion}</h2>
+              <p>{s.descripcion}</p>
+              <p className="precio">${s.precio}</p>
+              <button
+                className="btn-seleccionar"
+                onClick={() => handleSeleccionar(s)}
+              >
+                Seleccionar
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>Cargando planes...</p>
+        )}
       </div>
     </div>
   );

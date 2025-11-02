@@ -1,0 +1,96 @@
+.info-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.info-modal-content {
+  display: flex;
+  background-color: #141414;
+  color: white;
+  border-radius: 10px;
+  max-width: 900px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease;
+}
+
+.info-modal-poster {
+  width: 300px;
+  border-radius: 8px;
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+.info-modal-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-modal-details h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.info-modal-details .descripcion {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ccc;
+  margin-bottom: 15px;
+}
+
+.info-modal-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-play {
+  background-color: #e50914;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-play:hover {
+  background-color: #f40612;
+}
+
+.btn-back {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-back:hover {
+  background-color: #555;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

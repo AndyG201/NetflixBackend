@@ -45,15 +45,20 @@ public class UsuarioController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String correo, @RequestParam String contrasenia) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
+        String correo = loginData.get("correo");
+        String contrasenia = loginData.get("contrasenia");
+
         Usuario usuario = usuarioService.login(correo, contrasenia);
 
         if (usuario == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Correo o contraseña incorrectos");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Correo o contraseña incorrectos");
         }
 
         return ResponseEntity.ok(usuario);
     }
+
 
     @GetMapping("/actual")
     public ResponseEntity<?> obtenerUsuarioActual(@RequestParam String correo) {

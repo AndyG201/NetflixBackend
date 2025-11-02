@@ -13,14 +13,14 @@ import co.edu.unbosque.netflixbackend.model.Suscripcion;
 import co.edu.unbosque.netflixbackend.service.SuscripcionService;
 
 @RestController
-@RequestMapping("/suscripcion")
+@RequestMapping("/suscripciones")
 @CrossOrigin(origins = { "*" })
 public class SuscripcionController {
 
 	@Autowired
 	private SuscripcionService suscripcionService;
-	
-	@GetMapping("/obtenersuscripciones")
+
+	@GetMapping
 	public ResponseEntity<List<Suscripcion>> obtenerSuscripciones() {
 	    List<Suscripcion> suscripciones = suscripcionService.obtenerSuscripciones();
 

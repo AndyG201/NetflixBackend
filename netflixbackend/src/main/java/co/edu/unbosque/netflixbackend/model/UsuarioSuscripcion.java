@@ -8,19 +8,19 @@ public class UsuarioSuscripcion {
 	private LocalDateTime fechaFin;
 	private int idEstado;
 	private int idUsuario;
-	private int idSuscripción;
+	private int idSuscripcion;
 	
 	public UsuarioSuscripcion() {
 	}
 
 	public UsuarioSuscripcion(LocalDateTime fechaInicio, LocalDateTime fechaFin, int idEstado, int idUsuario,
-			int idSuscripción) {
+			int idSuscripcion) {
 		super();
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.idEstado = idEstado;
 		this.idUsuario = idUsuario;
-		this.idSuscripción = idSuscripción;
+		this.idSuscripcion = idSuscripcion;
 	}
 
 	public int getIdUsuarioSuscripcion() {
@@ -64,11 +64,11 @@ public class UsuarioSuscripcion {
 	}
 
 	public int getIdSuscripción() {
-		return idSuscripción;
+		return idSuscripcion;
 	}
 
 	public void setIdSuscripción(int idSuscripción) {
-		this.idSuscripción = idSuscripción;
+		this.idSuscripcion = idSuscripción;
 	}
 
 }
