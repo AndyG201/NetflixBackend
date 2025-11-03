@@ -5,24 +5,15 @@ const InfoModal = ({ pelicula, onClose, onPlay }) => {
   if (!pelicula) return null;
 
   const handlePlay = () => {
-    onPlay(pelicula);  // Abre el video
-    onClose();         // Cierra el modal de información
+    onPlay(pelicula); // La suma de puntos ya se hace en Peliculas.jsx
+    onClose();
   };
 
   return (
     <div className="info-modal-overlay" onClick={onClose}>
-      <div
-        className="info-modal-content"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Imagen del póster */}
-        <img
-          src={pelicula.poster || "https://via.placeholder.com/300x450"}
-          alt={pelicula.nombre}
-          className="info-modal-poster"
-        />
+      <div className="info-modal-content" onClick={(e) => e.stopPropagation()}>
+        <img src={pelicula.poster || "https://via.placeholder.com/300x450"} alt={pelicula.nombre} className="info-modal-poster" />
 
-        {/* Detalles */}
         <div className="info-modal-details">
           <h2>{pelicula.nombre}</h2>
           <p className="descripcion">{pelicula.descripcion}</p>
@@ -31,7 +22,6 @@ const InfoModal = ({ pelicula, onClose, onPlay }) => {
           <p><strong>Popularidad:</strong> {pelicula.popularidad || "N/A"}</p>
           <p><strong>Calificación:</strong> ⭐ {pelicula.calificacion || "N/A"}</p>
 
-          {/* Botones */}
           <div className="info-modal-buttons">
             <button className="btn-play" onClick={handlePlay}>
               ▶ Reproducir

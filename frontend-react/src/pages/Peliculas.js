@@ -3,7 +3,7 @@ import axios from "axios";
 import "../css/Peliculas.css";
 import InfoModal from "../pages/InfoModal";
 import VideoModal from "../pages/VideoModal";
-import PuntosModal from "../pages/PuntosModal"; // 👈 nuevo modal
+import PuntosModal from "../pages/PuntosModal";
 
 function Peliculas() {
   const [contenido, setContenido] = useState([]);
@@ -14,7 +14,9 @@ function Peliculas() {
   const [videoUrl, setVideoUrl] = useState(null);
   const [modalPuntos, setModalPuntos] = useState({ visible: false, puntos: 0, mensaje: "" });
 
-  const idUsuario = localStorage.getItem("idUsuario"); // 👈 asegúrate de guardar esto al loguear
+  // ✅ Obtener usuario y idUsuario desde localStorage
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const idUsuario = usuario?.id;
 
   const cargarContenido = async () => {
     try {
@@ -46,7 +48,6 @@ function Peliculas() {
         }));
       });
 
-      console.log("✅ Contenido cargado:", todoContenido);
       setContenido(todoContenido);
     } catch (error) {
       console.error("❌ Error cargando contenido:", error);
@@ -61,16 +62,15 @@ function Peliculas() {
   useEffect(() => {
     const filtrados = contenido.filter((item) => {
       const coincideTipo = tipo === "todos" || item.__tipo === tipo;
-      const coincideBusqueda = item.nombre
-        ?.toLowerCase()
-        .includes(busqueda.toLowerCase());
+      const coincideBusqueda = item.nombre?.toLowerCase().includes(busqueda.toLowerCase());
       return coincideTipo && coincideBusqueda;
     });
     setContenidoFiltrado(filtrados);
   }, [tipo, busqueda, contenido]);
 
-  // 👇 Nueva función: registra visualización y abre modal de puntos
   const registrarVisualizacion = async (item) => {
+    if (!idUsuario) return;
+
     try {
       const payload = {
         idUsuario: parseInt(idUsuario),
@@ -83,16 +83,17 @@ function Peliculas() {
 
       await axios.post(`http://localhost:8080/usuariopelicula/agregaralhistorial`, payload);
 
-      // 🎯 Simular puntos ganados
+      // 🎯 Sumar puntos al usuario
       const puntosGanados = Math.floor(Math.random() * 20) + 10;
+      await axios.post(`http://localhost:8080/puntos/sumar/${idUsuario}`, { puntos: puntosGanados });
+
       setModalPuntos({
         visible: true,
         puntos: puntosGanados,
         mensaje: "¡Gracias por ver este contenido!",
       });
-
     } catch (error) {
-      console.error("⚠️ Error al registrar visualización:", error);
+      console.error("⚠️ Error al registrar visualización o sumar puntos:", error);
     }
   };
 
@@ -103,7 +104,7 @@ function Peliculas() {
     setPeliculaSeleccionada(null);
     const url = item.urlVideo || item.urlPelicula || item.urlDocumental || "";
     setVideoUrl(url);
-    registrarVisualizacion(item); // 👈 registra y lanza modal
+    registrarVisualizacion(item);
   };
 
   const cerrarVideo = () => setVideoUrl(null);
@@ -118,6 +119,9 @@ function Peliculas() {
           <button className={tipo === "peliculas" ? "tab-activa" : ""} onClick={() => setTipo("peliculas")}>Películas</button>
           <button className={tipo === "series" ? "tab-activa" : ""} onClick={() => setTipo("series")}>Series</button>
           <button className={tipo === "documentales" ? "tab-activa" : ""} onClick={() => setTipo("documentales")}>Documentales</button>
+          <button className="btn-premios" onClick={() => setModalPuntos({ visible: true })}>
+            🏆 Mis premios
+          </button>
         </div>
 
         <button className="btn-cerrar-sesion" onClick={() => { localStorage.clear(); window.location.href = "/"; }}>
@@ -137,11 +141,7 @@ function Peliculas() {
       <div className="grid-peliculas">
         {contenidoFiltrado.length > 0 ? (
           contenidoFiltrado.map((item) => (
-            <div
-              key={`${item.__tipo}-${item.__id}`}
-              className="card-pelicula"
-              onClick={() => abrirInfo(item)}
-            >
+            <div key={`${item.__tipo}-${item.__id}`} className="card-pelicula" onClick={() => abrirInfo(item)}>
               <img src={item.poster || "https://via.placeholder.com/200"} alt={item.nombre} />
               <div className="card-info"><h3>{item.nombre}</h3></div>
             </div>
@@ -153,12 +153,7 @@ function Peliculas() {
 
       <InfoModal pelicula={peliculaSeleccionada} onClose={cerrarInfo} onPlay={reproducirVideo} />
       <VideoModal videoUrl={videoUrl} onClose={cerrarVideo} />
-      <PuntosModal
-        visible={modalPuntos.visible}
-        puntos={modalPuntos.puntos}
-        mensaje={modalPuntos.mensaje}
-        onClose={() => setModalPuntos({ visible: false })}
-      />
+      <PuntosModal visible={modalPuntos.visible} mensaje={modalPuntos.mensaje} onClose={() => setModalPuntos({ visible: false })} />
     </div>
   );
 }
