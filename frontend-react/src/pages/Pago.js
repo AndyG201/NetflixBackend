@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "../css/Pago.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -12,7 +13,6 @@ const Pago = () => {
 
   useEffect(() => {
     if (!usuario || !suscripcion) {
-      alert("⚠️ Debes seleccionar una suscripción antes de pagar");
       navigate("/suscripciones");
     }
   }, [usuario, suscripcion, navigate]);
@@ -25,9 +25,36 @@ const Pago = () => {
     { id: 5, nombre: "Efectivo" },
   ];
 
-  const handlePagar = () => {
-    alert(`✅ Pago registrado usando: ${metodoSeleccionado}`);
-    navigate("/peliculas");
+  const handlePagar = async () => {
+    try {
+      const pago = {
+        idUsuario: usuario.idUsuario,
+        idSuscripcion: suscripcion.idSuscripcion,
+        metodo: metodoSeleccionado,
+        monto: suscripcion.precio
+      };
+
+      await axios.post("http://localhost:8080/pago", pago);
+
+      await axios.post(
+        "http://localhost:8080/usuario/suscribirse",
+        null,
+        {
+          params: {
+            idUsuario: usuario.idUsuario,
+            idSuscripcion: suscripcion.idSuscripcion
+          }
+        }
+      );
+
+
+      // 3️⃣ Redirigir
+      navigate("/peliculas");
+
+    } catch (error) {
+
+      navigate("/peliculas");
+    }
   };
 
   return (

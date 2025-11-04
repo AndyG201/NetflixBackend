@@ -71,7 +71,6 @@ const Register = () => {
             );
 
             if (response.status === 201) {
-                alert('✅ Usuario creado correctamente.');
                 navigate('/');
             } else {
                 setMensaje('Código incorrecto o error al crear el usuario.');

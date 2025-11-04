@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import co.edu.unbosque.netflixbackend.repository.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -23,9 +24,6 @@ import co.edu.unbosque.netflixbackend.model.Genero;
 import co.edu.unbosque.netflixbackend.model.Pelicula;
 import co.edu.unbosque.netflixbackend.model.Serie;
 import co.edu.unbosque.netflixbackend.model.Temporada;
-import co.edu.unbosque.netflixbackend.repository.EpisodioRepository;
-import co.edu.unbosque.netflixbackend.repository.SerieRepository;
-import co.edu.unbosque.netflixbackend.repository.TemporadaRepository;
 
 public class ExternalHTTPRequestHandler {
 
@@ -404,74 +402,69 @@ public class ExternalHTTPRequestHandler {
 		return temporadas;
 	}
 
-	// 🔹 Método principal de prueba
-	public static void main(String[] args) throws SQLException {
-		/*
-		 * Random random = new Random(); PeliculaRepository repoPeliculas = new
-		 * PeliculaRepository(); List<Pelicula> peliculas = obtenerPeliculas(10);
-		 * 
-		 * for (Pelicula p : peliculas) { // Calificación aleatoria entre 0.0 y 10.0,
-		 * redondeada a 1 decimal double calificacion = Math.min(10.0, Math.round((1.0 +
-		 * random.nextDouble() * 9.0) * 10.0) / 10.0);
-		 * 
-		 * // Popularidad aleatoria entre 0 y 100, redondeada a entero int popularidad =
-		 * random.nextInt(101); // incluye el 100
-		 * 
-		 * p.setCalificacion(calificacion); p.setPopularidad(popularidad);
-		 * 
-		 * // URL del tráiler o teaser desde TMDb String url =
-		 * obtenerUrlYoutubePelicula(p.getNombre()); p.setUrlPelicula(url);
-		 * 
-		 * repoPeliculas.agregarPelicula(p);
-		 * 
-		 * System.out.println("🎬 Agregada película: " + p.getNombre() + " | ⭐ " +
-		 * String.format("%.1f", p.getCalificacion()) + " | 📈 " + p.getPopularidad());
-		 * }
-		 * 
-		 * 
-		 * 
-		 * 
-		 * DocumentalRepository documentalRepository = new DocumentalRepository();
-		 * List<Documental> documentales = obtenerDocumentales(10);
-		 * 
-		 * for (Documental d : documentales) { double calificacion = Math.min(10.0,
-		 * Math.round((1.0 + random.nextDouble() * 9.0) * 10.0) / 10.0); int popularidad
-		 * = random.nextInt(101);
-		 * 
-		 * d.setCalificacion(calificacion); d.setPopularidad(popularidad);
-		 * 
-		 * String url = obtenerUrlYoutubePelicula(d.getNombre());
-		 * d.setUrlDocumental(url);
-		 * 
-		 * documentalRepository.agregarDocumental(d);
-		 * 
-		 * System.out.println("🎥 Agregado documental: " + d.getNombre() + " | ⭐ " +
-		 * String.format("%.1f", d.getCalificacion()) + " | 📈 " + d.getPopularidad());
-		 * }
-		 * 
-		 * GeneroRepository repoGeneros = new GeneroRepository(); /* // ✅ Obtener lista
-		 * desde la API List<Genero> generos = obtenerGeneros();
-		 * 
-		 * // ✅ Insertar cada género en la base de datos for (Genero g : generos) {
-		 * boolean insertado = repoGeneros.crearGeneros(g);
-		 * 
-		 * if (insertado) { System.out.println("🎭 Género agregado: " + g.getNombre());
-		 * } else { System.out.println("⚠️ No se pudo agregar: " + g.getNombre()); } }
-		 */
+    public static void main(String[] args) throws SQLException {
 
-		SerieRepository serieRepo = new SerieRepository();
-		TemporadaRepository temporadaRepo = new TemporadaRepository();
-		EpisodioRepository episodioRepo = new EpisodioRepository();
+          Random random = new Random(); PeliculaRepository repoPeliculas = new
+          PeliculaRepository(); List<Pelicula> peliculas = obtenerPeliculas(10);
 
-		List<Serie> series = obtenerSeries(3); // ✅ corregido: método correcto
+          for (Pelicula p : peliculas) {
+              double calificacion = Math.min(10.0, Math.round((1.0 +
+          random.nextDouble() * 9.0) * 10.0) / 10.0);
 
-		for (Serie s : series) {
-			serieRepo.insertarSerie(s);
-			System.out.println("📺 Serie agregada: " + s.getTitulo());
-			obtenerTemporadasYepisodios(s, temporadaRepo, episodioRepo);
-		}
-	}
+          int popularidad = random.nextInt(101);
+
+          p.setCalificacion(calificacion); p.setPopularidad(popularidad);
+
+           String url = obtenerUrlYoutubePelicula(p.getNombre()); p.setUrlPelicula(url);
+
+          repoPeliculas.agregarPelicula(p);
+
+          System.out.println("🎬 Agregada película: " + p.getNombre() + " | ⭐ " +
+          String.format("%.1f", p.getCalificacion()) + " | 📈 " + p.getPopularidad());
+         }
+
+
+
+
+          DocumentalRepository documentalRepository = new DocumentalRepository();
+          List<Documental> documentales = obtenerDocumentales(10);
+
+          for (Documental d : documentales) { double calificacion = Math.min(10.0,
+          Math.round((1.0 + random.nextDouble() * 9.0) * 10.0) / 10.0); int popularidad
+          = random.nextInt(101);
+
+          d.setCalificacion(calificacion); d.setPopularidad(popularidad);
+
+          String url = obtenerUrlYoutubePelicula(d.getNombre());
+          d.setUrlDocumental(url);
+
+          documentalRepository.agregarDocumental(d);
+
+         System.out.println("🎥 Agregado documental: " + d.getNombre() + " | ⭐ " +
+          String.format("%.1f", d.getCalificacion()) + " | 📈 " + d.getPopularidad());
+          }
+
+          GeneroRepository repoGeneros = new GeneroRepository();
+          List<Genero> generos = obtenerGeneros();
+
+           for (Genero g : generos) {
+          boolean insertado = repoGeneros.crearGeneros(g);
+
+          if (insertado) { System.out.println("🎭 Género agregado: " + g.getNombre());
+          } else { System.out.println("⚠️ No se pudo agregar: " + g.getNombre()); } }
+
+
+        SerieRepository serieRepo = new SerieRepository();
+        TemporadaRepository temporadaRepo = new TemporadaRepository();
+        EpisodioRepository episodioRepo = new EpisodioRepository();
+
+        List<Serie> series = obtenerSeries(3);
+
+        for (Serie s : series) {
+            serieRepo.insertarSerie(s);
+            System.out.println("📺 Serie agregada: " + s.getTitulo());
+            obtenerTemporadasYepisodios(s, temporadaRepo, episodioRepo);
+        }
+    }
 
 }
-
-	

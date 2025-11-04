@@ -76,3 +76,29 @@
 .register-link:hover {
   text-decoration: underline;
 }
+/* ✅ Mensaje de error estilo Netflix */
+.netflix-error {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #e50914;
+  color: white;
+  text-align: center;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 2000;
+  animation: slideDown 0.4s ease-out, fadeOut 0.4s ease-in 2.6s forwards;
+}
+
+/* Animación de entrada */
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+/* Animación de salida */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

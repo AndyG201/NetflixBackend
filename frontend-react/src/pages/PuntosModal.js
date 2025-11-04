@@ -23,8 +23,9 @@ function PuntosModal({ visible, onClose }) {
   if (!visible) return null;
 
   return (
-    <div className="puntos-modal-overlay">
-      <div className="puntos-modal">
+    <div className="puntos-modal-overlay" onClick={onClose}>
+      <div className="puntos-modal" onClick={(e) => e.stopPropagation()}>
+
         <h2>Puntos acumulados: {puntos}</h2>
 
         <h3>Premios disponibles:</h3>
@@ -40,9 +41,7 @@ function PuntosModal({ visible, onClose }) {
           )}
         </ul>
 
-        <button className="btn-cerrar" onClick={onClose}>
-          Cerrar
-        </button>
+        <button className="btn-cerrar" onClick={onClose}>X</button>
       </div>
     </div>
   );

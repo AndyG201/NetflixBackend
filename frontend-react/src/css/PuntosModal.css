@@ -21,6 +21,7 @@
   text-align: center;
   box-shadow: 0px 0px 25px rgba(255, 0, 0, 0.4);
   animation: zoomIn 0.25s ease-out;
+  position: relative; /* NECESARIO para ubicar la X */
 }
 
 .puntos-modal h2 {
@@ -68,7 +69,25 @@
   transform: scale(1.05);
 }
 
-/* Animación suave */
+/* Botón X */
+.btn-x {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-x:hover {
+  color: #e50914;
+  transform: scale(1.2);
+}
+
+/* Animación */
 @keyframes zoomIn {
   from {
     transform: scale(0.7);
