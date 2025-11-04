@@ -1,8 +1,7 @@
 package co.edu.unbosque.netflixbackend.repository;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -87,5 +86,27 @@ public class PremioRepository {
         }
 
         return lista;
+    }
+
+    public Map<String, String> obtenerNombreYRecompensa(int idPremio) {
+        String sql = "SELECT nombre, recompensa FROM premio WHERE id_premio = ?";
+        Map<String, String> data = new HashMap<>();
+
+        try (Connection conn = conexionDB.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idPremio);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                data.put("nombre", rs.getString("nombre"));
+                data.put("recompensa", rs.getString("recompensa"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return data;
     }
 }

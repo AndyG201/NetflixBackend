@@ -1,39 +1,81 @@
 .puntos-modal-overlay {
   position: fixed;
-  inset: 0;
-  background-color: rgba(0,0,0,0.7);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 2000;
+  justify-content: center;
+  z-index: 999;
 }
 
-.puntos-modal-content {
-  background: #141414;
-  color: #fff;
-  border-radius: 12px;
-  padding: 30px;
-  text-align: center;
-  width: 350px;
-  box-shadow: 0 0 20px rgba(255,255,255,0.2);
-}
-
-.puntos-modal-content h2 {
-  color: #e50914;
-  margin-bottom: 15px;
-}
-
-.puntos-modal-content button {
-  margin-top: 20px;
-  background-color: #e50914;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 6px;
+.puntos-modal {
+  background: #111;
   color: white;
-  cursor: pointer;
-  transition: background 0.2s;
+  width: 420px;
+  padding: 25px;
+  border-radius: 12px;
+  font-family: "Netflix Sans", sans-serif;
+  text-align: center;
+  box-shadow: 0px 0px 25px rgba(255, 0, 0, 0.4);
+  animation: zoomIn 0.25s ease-out;
 }
 
-.puntos-modal-content button:hover {
-  background-color: #b00610;
+.puntos-modal h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  color: #e50914;
+  font-weight: bold;
+}
+
+.puntos-modal h3 {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.lista-premios {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.lista-premios li {
+  background: #1a1a1a;
+  padding: 10px;
+  margin: 6px 0;
+  border-radius: 6px;
+  border-left: 4px solid #e50914;
+}
+
+.btn-cerrar {
+  margin-top: 18px;
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-cerrar:hover {
+  background: #f6121d;
+  transform: scale(1.05);
+}
+
+/* Animación suave */
+@keyframes zoomIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

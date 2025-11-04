@@ -12,12 +12,15 @@ function Peliculas() {
   const [busqueda, setBusqueda] = useState("");
   const [peliculaSeleccionada, setPeliculaSeleccionada] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
-  const [modalPuntos, setModalPuntos] = useState({ visible: false, puntos: 0, mensaje: "" });
 
-  // ✅ Obtener usuario y idUsuario desde localStorage
+  // 🔹 Control modal puntos
+  const [modalPuntosVisible, setModalPuntosVisible] = useState(false);
+
+  // ✅ Obtener usuario desde localStorage
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const idUsuario = usuario?.id;
+  const idUsuario = usuario?.idUsuario || usuario?.id;
 
+  // 🔹 Cargar contenido del backend
   const cargarContenido = async () => {
     try {
       const urls = [
@@ -26,8 +29,9 @@ function Peliculas() {
         "http://localhost:8080/documental/obtenertodosdocumentales",
       ];
 
-      const peticiones = urls.map((u) => axios.get(u).catch(() => ({ data: [] })));
-      const respuestas = await Promise.all(peticiones);
+      const respuestas = await Promise.all(
+        urls.map((u) => axios.get(u).catch(() => ({ data: [] })))
+      );
 
       const todoContenido = respuestas.flatMap((r, index) => {
         let tipo = "desconocido";
@@ -59,6 +63,7 @@ function Peliculas() {
     cargarContenido();
   }, []);
 
+  // 🔹 Filtrar por búsqueda o categoría
   useEffect(() => {
     const filtrados = contenido.filter((item) => {
       const coincideTipo = tipo === "todos" || item.__tipo === tipo;
@@ -68,6 +73,7 @@ function Peliculas() {
     setContenidoFiltrado(filtrados);
   }, [tipo, busqueda, contenido]);
 
+  // ✅ Registrar visualización y sumar puntos
   const registrarVisualizacion = async (item) => {
     if (!idUsuario) return;
 
@@ -83,17 +89,15 @@ function Peliculas() {
 
       await axios.post(`http://localhost:8080/usuariopelicula/agregaralhistorial`, payload);
 
-      // 🎯 Sumar puntos al usuario
-      const puntosGanados = Math.floor(Math.random() * 20) + 10;
+      let puntosGanados = item.__tipo === "peliculas" ? 20 :
+                          item.__tipo === "series" ? 15 :
+                          item.__tipo === "documentales" ? 10 : 0;
+
       await axios.post(`http://localhost:8080/puntos/sumar/${idUsuario}`, { puntos: puntosGanados });
 
-      setModalPuntos({
-        visible: true,
-        puntos: puntosGanados,
-        mensaje: "¡Gracias por ver este contenido!",
-      });
+      setModalPuntosVisible(true);
     } catch (error) {
-      console.error("⚠️ Error al registrar visualización o sumar puntos:", error);
+      console.error("⚠️ Error al registrar visualización:", error);
     }
   };
 
@@ -109,6 +113,9 @@ function Peliculas() {
 
   const cerrarVideo = () => setVideoUrl(null);
 
+  const abrirModalPuntos = () => setModalPuntosVisible(true);
+  const cerrarModalPuntos = () => setModalPuntosVisible(false);
+
   return (
     <div className="contenedor-peliculas">
       <header className="top-bar">
@@ -119,12 +126,19 @@ function Peliculas() {
           <button className={tipo === "peliculas" ? "tab-activa" : ""} onClick={() => setTipo("peliculas")}>Películas</button>
           <button className={tipo === "series" ? "tab-activa" : ""} onClick={() => setTipo("series")}>Series</button>
           <button className={tipo === "documentales" ? "tab-activa" : ""} onClick={() => setTipo("documentales")}>Documentales</button>
-          <button className="btn-premios" onClick={() => setModalPuntos({ visible: true })}>
-            🏆 Mis premios
+
+          <button className="btn-premios" onClick={abrirModalPuntos}>
+            🏆 Mis puntos
           </button>
         </div>
 
-        <button className="btn-cerrar-sesion" onClick={() => { localStorage.clear(); window.location.href = "/"; }}>
+        <button
+          className="btn-cerrar-sesion"
+          onClick={() => {
+            localStorage.clear();
+            window.location.href = "/";
+          }}
+        >
           Cerrar sesión
         </button>
       </header>
@@ -143,7 +157,9 @@ function Peliculas() {
           contenidoFiltrado.map((item) => (
             <div key={`${item.__tipo}-${item.__id}`} className="card-pelicula" onClick={() => abrirInfo(item)}>
               <img src={item.poster || "https://via.placeholder.com/200"} alt={item.nombre} />
-              <div className="card-info"><h3>{item.nombre}</h3></div>
+              <div className="card-info">
+                <h3>{item.nombre}</h3>
+              </div>
             </div>
           ))
         ) : (
@@ -153,7 +169,8 @@ function Peliculas() {
 
       <InfoModal pelicula={peliculaSeleccionada} onClose={cerrarInfo} onPlay={reproducirVideo} />
       <VideoModal videoUrl={videoUrl} onClose={cerrarVideo} />
-      <PuntosModal visible={modalPuntos.visible} mensaje={modalPuntos.mensaje} onClose={() => setModalPuntos({ visible: false })} />
+
+      <PuntosModal visible={modalPuntosVisible} onClose={cerrarModalPuntos} />
     </div>
   );
 }
